@@ -3,3 +3,11 @@
 
 *.iml
 
+
+.vscode/
+
+server/__pycache__/
+
+server/db/__pycache__/
+
+*.pyc

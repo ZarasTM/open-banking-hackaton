@@ -1,0 +1,193 @@
+openapi: 3.0.0
+info:
+  title: YATI API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.0.1
+
+paths:
+  ######################################
+  ################ CORE ################
+  ######################################
+  /status:
+    get:
+      operationId: endpoints.api-core.status
+      tags:
+        - API Core
+        - Services
+      summary: Checks services' statuses
+      responses:
+        200:
+          description: Returns list of statuses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusRes'
+
+  ######################################
+  ############## INVOICES ##############
+  ######################################
+  
+  /invoice/getUserData:
+    post:
+      operationId: endpoints.user-account.getUserInvoiceConfig
+      tags:
+        - Users
+        - Invoice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tin:
+                  type: string
+      responses:
+        200:
+          description: Company data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInvoiceInfo'
+
+  /test:
+    get:
+      operationId: endpoints.testing.test
+      responses:
+        200:
+          description: Test
+        
+
+# All the response objects are named <x>Res (response); 
+# All the incoming objects are called <x>Req (request); 
+# For both they are called <x>Resq
+
+components:
+  schemas:
+    ### Core
+    StatusRes:
+      type: object
+      properties:
+        statuses: 
+          type: array
+          items: 
+            type: object
+            properties:
+              service_name:
+                type: string
+              service_status:
+                type: boolean
+              # additional_info:
+              #   type: string
+            required:
+              [service_name, service_status]
+
+    ### Registration
+    RegistrationReq:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        company_name:
+          type: string
+        tin:
+          type: string
+        address:
+          type: string
+        account_number:
+          type: string
+
+    ### Users
+    UserInvoiceInfo:
+      type: object
+      properties:
+        name: 
+          type: string
+        address:
+          type: string
+        account_number: 
+          type: string
+        tin:
+          type: string
+
+    UserConfig:
+      type: object
+      properties:
+        default_currency:
+          type: string
+        timezone:
+          type: string
+        api_key:
+          type: string
+        status:
+          type: integer
+
+    ### Invoices
+    InvoiceProduct:
+      type: object
+      properties:
+        iid:
+          type: integer
+        name:
+          type: string
+        quantity:
+          type: number
+        unit:
+          type: string
+        tax_rate:
+          type: number
+        net_ppu:
+          type: number
+
+    InvoiceSummaryItem:
+      type: object
+      properties:
+        title:
+          type: string
+        other_party:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        date:
+          type: string
+
+    InvoiceSummaryRes:
+      type: object
+      properties:
+        as_seller:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceSummaryItem'
+        as_buyer:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceSummaryItem'
+
+    InvoiceRes:
+      type: object
+      properties:
+        seller:
+          $ref: '#/components/schemas/UserInvoiceInfo'
+        buyer:
+          $ref: '#/components/schemas/UserInvoiceInfo'
+        timestamp:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        name:
+          type: string
+        items:
+          type: string
+
+    
+        
+
+
+
+
