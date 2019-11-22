@@ -6,11 +6,13 @@
             <span slot="header">{{seller.name}}</span>
             <span slot="subheader">{{seller.address}}</span>
             <span slot="subheader">{{seller.nip}}</span>
+            <span slot="subheader">{{seller.bankAccount}}</span>
         </vnt-header>
         <vnt-header>
             <span slot="header">{{buyer.name}}</span>
             <span slot="subheader">{{buyer.address}}</span>
             <span slot="subheader">{{buyer.nip}}</span>
+            <span slot="subheader">{{buyer.bankAccount}}</span>
         </vnt-header>
     </div>
     <div class="inner">
@@ -32,9 +34,11 @@
 </template>
 
 <script>
-import InvoiceItem from "./InvoiceItem"
+import InvoiceItem from "@/components/InvoiceItem"
+import InvoiceService from "@/services/InvoiceService"
+
 export default {
-  name: 'SignIn',
+  name: 'CreateInvoice',
   data: () => {
     return {
         seller: {
@@ -68,10 +72,9 @@ export default {
         this.price = ''
         this.taxRate = ''
       },
-      invoice: function () {
-          console.log("Invoiced with: ")
-          console.log(this.invoiceItems)
-          console.log(this.invoiceTitle)
+      async invoice () {
+          InvoiceService.getUserData({ tin: this.seller.nip })
+          InvoiceService.getUserData({ tin: this.buyer.nip })
       }
   },
   components: {
