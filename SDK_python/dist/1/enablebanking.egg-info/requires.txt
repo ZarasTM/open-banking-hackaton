@@ -1,0 +1,4 @@
+six>=1.10
+certifi
+python-dateutil
+cryptography==2.6.1
