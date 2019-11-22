@@ -7,6 +7,7 @@ import Vuent from 'vuent'
 Vue.config.productionTip = false
 Vue.use(Vuent)
 
+
 new Vue({
   router,
   store,
