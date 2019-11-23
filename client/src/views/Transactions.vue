@@ -1,8 +1,8 @@
 <template>
     <b-jumbotron class="dashboard">
         <template v-slot:header>
-            Transactions</template>
-
+            <span class="text-white">Transactions</span></template>
+        <hr class="my-4">
         <b-card title="Card Title" no-body>
             <b-card-header header-tag="nav">
                 <b-nav card-header tabs>

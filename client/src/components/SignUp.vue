@@ -4,7 +4,7 @@
 		<b-form @submit.stop.prevent>
        <b-row>
          <b-col>
-
+            <h4>Register data</h4>
            <b-form-group
                    	id="email-input"
                    	label="Email address:"
@@ -48,6 +48,7 @@
            </b-form-group>
          </b-col>
          <b-col>
+             <h4>Company data</h4>
            <b-form-group
                    	id="company-input"
                    	label="Company name:"
@@ -63,8 +64,8 @@
            </b-form-group>
 
            <b-form-group
-                   	id="nip-input"
-                   	label="NIP:"
+                   	id="tin-input"
+                   	label="tin:"
                    	label-for="input-4"
            >
              <b-form-input
@@ -72,7 +73,7 @@
                     type="text"
 					v-model="tin"
                     required
-                    placeholder="NIP"
+                    placeholder="tin"
              ></b-form-input>
            </b-form-group>
 
@@ -108,7 +109,7 @@
     </b-form>
 	<b-button @click="register" block variant="info">
         <span>Sign Up</span>
-		<v-icon class="v-icon" name="chevron-up"></v-icon>
+
 	</b-button>
     <b-modal v-model="qrVisible" size="xl" title="QR Code" @ok="closeQR">
         <display-qr :qr="qr" :code="code"/>

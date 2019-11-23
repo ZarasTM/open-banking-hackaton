@@ -1,5 +1,6 @@
 <template>
     <div class="navbar">
+        <h1 class="text-white">YATI</h1>
         <b-link to="/dashboard" router-tag="b-button" active-class="btn-info">
              <v-icon class="v-icon" name="align-justify"/> <span>Dashboard</span></b-link>
         <b-link to="/transactions" router-tag="b-button" active-class="btn-info">
@@ -18,7 +19,7 @@
 <style lang="scss" scoped>
     .navbar {
         margin: 0;
-        padding: 50px 15px;
+        padding: 12px 15px;
         min-width: $nav-width;
         background-color: $dark-grey;
         position: fixed;

@@ -1,10 +1,11 @@
 <template>
         <b-jumbotron class="dashboard">
             <template v-slot:header>
-                <div class="company-name"><v-icon class="v-icon company-icon" name="briefcase"></v-icon>{{companyName}}</div></template>
+                <div class="company-name text-white"><v-icon class="v-icon company-icon" name="briefcase"></v-icon>{{companyName}}</div></template>
 
             <template v-slot:lead>
-                NIP: {{nip}}
+                <div class="text-white">Balance: {{tin}}</div>
+                <div class="text-white">tin: {{tin}}</div>
             </template>
             <b-button @click="goToTransactions()" variant="info">
                 <v-icon class="v-icon" name="book"></v-icon>Transactions</b-button>
@@ -20,7 +21,7 @@
                     </div>
 
                     <p class="mb-1">
-                        NIP: {{company.nip}}
+                        tin: {{company.tin}}
                     </p>
 
                     <small>{{company.address}}</small>
@@ -37,41 +38,41 @@
         data: ()=>{
             return{
                 companyName: 'PolMachniax',
-                nip: '12356',
+                tin: '12356',
                 companies: [
                     {
                         name: 'Budnix',
-                        nip: '42069',
+                        tin: '42069',
                         address: 'ul. Piotrkowska 69',
                         balance: 12345.67
                     },
                     {
                         name: 'Piotreks Sp. Z o.o.',
-                        nip: '42069',
+                        tin: '42069',
                         address: 'ul. Michałowska 420',
                         balance: -12345.67
                     },
                     {
                         name: 'Budnix',
-                        nip: '42069',
+                        tin: '42069',
                         address: 'ul. Piotrkowska 69',
                         balance: 12345.67
                     },
                     {
                         name: 'Piotreks Sp. Z o.o.',
-                        nip: '42069',
+                        tin: '42069',
                         address: 'ul. Michałowska 420',
                         balance: -12345.67
                     },
                     {
                         name: 'Budnix',
-                        nip: '42069',
+                        tin: '42069',
                         address: 'ul. Piotrkowska 69',
                         balance: 12345.67
                     },
                     {
                         name: 'Piotreks Sp. Z o.o.',
-                        nip: '42069',
+                        tin: '42069',
                         address: 'ul. Michałowska 420',
                         balance: -12345.67
                     },

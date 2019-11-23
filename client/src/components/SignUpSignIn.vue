@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+
         <div class="row">
             <div class=" col-md-9 col-lg-9 mx-auto">
                 <div class="card my-5">
@@ -35,7 +36,7 @@
         data: () => {
             return {
                 activeTab: 'In',
-                tabs: ['Up', 'In']
+                tabs: ['In','Up']
             }
         },
         computed: {

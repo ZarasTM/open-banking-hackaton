@@ -55,12 +55,9 @@
                         v-model="tax_rate" placeholder="Tax rate"
                 ></b-input>
 
-
                 <b-button style="margin-top: 15px;" v-on:click="addItem" variant="primary">Add item</b-button>
             </b-form>
         </div>
-
-
     </div>
 </template>
 
@@ -75,13 +72,13 @@
                 seller: {
                     address: 'sss',
                     name: 'sss',
-                    nip: 'sss',
+                    tin: 'sss',
                     bankAccount: '213123'
                 },
                 buyer: {
                     address: 'sss',
                     name: 'aasd',
-                    nip: 'asdas',
+                    tin: 'asdas',
                     bankAccount: '213123'
                 },
                 name: '',
@@ -111,23 +108,23 @@
             },
             async invoice() {
                 console.log({
-                    seller_nip: this.seller.nip,
-                    buyer_nip: this.buyer.nip,
+                    seller_nip: this.seller.tin,
+                    buyer_nip: this.buyer.tin,
                     title: this.title,
                     currency: this.currency,
                     items: this.invoiceItems
                 })
                 InvoiceService.createInvoice({
-                    seller_nip: this.seller.nip,
-                    buyer_nip: this.buyer.nip,
+                    seller_nip: this.seller.tin,
+                    buyer_nip: this.buyer.tin,
                     title: this.title,
                     currency: this.currency,
                     items: this.invoiceItems
                 }).then(response => {
                     console.log(response)
                 })
-                // InvoiceService.getUserData({ tin: this.seller.nip })
-                // InvoiceService.getUserData({ tin: this.buyer.nip })
+                // InvoiceService.getUserData({ tin: this.seller.tin })
+                // InvoiceService.getUserData({ tin: this.buyer.tin })
             }
         },
         components: {

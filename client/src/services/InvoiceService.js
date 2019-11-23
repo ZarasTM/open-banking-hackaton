@@ -1,8 +1,8 @@
 import { httpClient } from './HttpClient';
 
 export default {
-  getUserData(nip) {
-    return httpClient.post('/invoice/getUserData', nip);
+  getUserData(tin) {
+    return httpClient.post('/invoice/getUserData', tin);
   },
   createInvoice(invoiceId) {
     return httpClient.post('/invoice/createInvoice', invoiceId);

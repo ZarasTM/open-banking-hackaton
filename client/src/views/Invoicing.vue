@@ -1,15 +1,15 @@
 <template>
     <b-jumbotron class="dashboard">
         <template v-slot:header>
-            Invoicing</template>
-
+            <span class="text-white">Invoicing</span></template>
+        <hr class="my-4">
         <b-row>
             <b-form inline>
-                <label class="sr-only" for="inline-form-input-name">NIP</label>
+                <label class="sr-only" for="inline-form-input-name">tin</label>
                 <b-input
                         id="inline-form-input-name"
                         class="mb-2 mr-sm-2 mb-sm-0"
-                        v-model="nip" placeholder="NIP"
+                        v-model="tin" placeholder="tin"
                 ></b-input>
                 <b-button @click="setInvoice" variant="primary">
                     <v-icon class="v-icon" name="edit"/>Create invoice</b-button>
@@ -21,7 +21,7 @@
 
         <b-row>
             <b-form inline>
-                <label class="sr-only" for="inline-form-input-name-2">NIP</label>
+                <label class="sr-only" for="inline-form-input-name-2">tin</label>
                 <b-input
                         id="inline-form-input-name-2"
                         class="mb-2 mr-sm-2 mb-sm-0"
@@ -47,7 +47,7 @@
         data: () => {
             return {
                 invoiceId: '',
-                nip: '',
+                tin: '',
                 displayInvoice: false,
                 createInvoice: false,
                 currentInvoice: {}
@@ -71,13 +71,13 @@
                     seller: {
                         address: 'Address 1',
                         name: 'Name 1',
-                        tin: 'NIP 1',
+                        tin: 'tin 1',
                         account_number: '111111111111111'
                     },
                         buyer: {
                         address: 'Address 2',
                         name: 'Name 2',
-                        tin: 'NIP 2',
+                        tin: 'tin 2',
                         account_number: '2222222222222222'
                     },
                     amount: '0,00',

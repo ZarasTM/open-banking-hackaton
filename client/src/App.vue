@@ -20,7 +20,6 @@
 
 .router {
   @extend %full-page;
-  padding-top: 100px;
   padding-left: $nav-width+50px;
   position: absolute;
   top: 0;

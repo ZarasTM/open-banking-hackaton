@@ -1,6 +1,7 @@
 <template>
     <div>
         <b-form @submit.stop.prevent>
+            <h4>Login data</h4>
             <b-form-group
                     id="email-input"
                     label="Email address:"
@@ -29,36 +30,43 @@
                 ></b-form-input>
             </b-form-group>
 
-             <b-form-group
-                    id="auth-input"
-                    label="Authentication code:"
-                    label-for="input-3"
-            >
-                <b-form-input
-                        id="input-3"
-                        type="text"
-                        v-model="totp_code"
-                        required
-                        placeholder="Authentication code"
-                ></b-form-input>
-            </b-form-group>
-
             <b-form-checkbox
-                id="checkbox-1"
-                name="checkbox-1"
-                v-model="remember"
+                    id="checkbox-1"
+                    name="checkbox-1"
+                    v-model="remember"
             >
                 Remember
             </b-form-checkbox>
 
-            <b-button type="submit" block variant="info" v-on:click="login">
-                <span>Sign In</span><v-icon class="v-icon" name="log-in"></v-icon></b-button>
+            <b-button @click="showAuthCodeModal" block variant="info" style="margin-top: 10px;">
+                <span>Sign In</span>
+                <v-icon class="v-icon" name="log-in"></v-icon>
+            </b-button>
         </b-form>
+
+        <b-modal v-model="isAuthCodeModalVisible" title="Enter auth code" @ok="login">
+            <b-form @submit.stop.prevent>
+                <b-form-group
+                        id="auth-input"
+                        label="Authentication code:"
+                        label-for="input-3"
+                >
+                    <b-form-input
+                            id="input-3"
+                            type="text"
+                            v-model="totp_code"
+                            required
+                            placeholder="Authentication code"
+                    ></b-form-input>
+                </b-form-group>
+            </b-form>
+        </b-modal>
     </div>
 </template>
 
 <script>
-	import HttpService from "@/services/SignInSignUpService"
+    import HttpService from "@/services/SignInSignUpService"
+
     export default {
         name: 'SignIn',
         data: () => {
@@ -66,7 +74,8 @@
                 email: '',
                 password: '',
                 totp_code: '',
-                remember: false
+                remember: false,
+                isAuthCodeModalVisible: false,
             }
         },
         methods: {
@@ -76,9 +85,12 @@
                     password: this.password,
                     remember: this.remember,
                     totp_code: this.totp_code
-                }).then (response => {
+                }).then(response => {
                     this.$router.push('dashboard');
                 })
+            },
+            showAuthCodeModal: function () {
+                this.isAuthCodeModalVisible = true;
             }
         }
     }
