@@ -8,9 +8,11 @@ def test():
 
     # print(queries.getUIDByEmail('email4'))
     # print(vars(queries.getLogin('email4')))
+    # print(vars(queries.getUserByID(20)))
+    # print(queries.getUserByID(20) == queries.getUserByID('20'))
 
 
-    print(queries.getUserSettings('email10'))
+    # print(queries.getUserSettings('email10'))
 
     #     return make_response(res, 200)
     return make_response('', 418)

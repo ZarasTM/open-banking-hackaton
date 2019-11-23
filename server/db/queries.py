@@ -60,7 +60,7 @@ def emailRegistered(email):
     return True if UserLogin.query.filter(UserLogin.email == email).one_or_none() else False
 
 
-def register(email, hashed, name, address, account_number, tin, totp_secret, api_key="Yachniaccio"): # TODO - Implement any other data necessary for company registration # TODO: do
+def register(email, hashed, name, address, account_number, tin, totp_secret, api_key=None): # TODO - Implement any other data necessary for company registration # TODO: do
     """
     :input: email, hashed password, name (company), address (string), account number / IBAN (string),
     tin (taxpayer Id number) (string), api_key (#TODO or toremove)
@@ -226,6 +226,18 @@ def updateBalances(interaction):
         amount=amount, currency=currency)
         db.session.add(new_balance2)
 
-    def fetchUserBalance(uid):
-        return Balance.query.filter(Balance.seller == uid).all()
+def fetchUserBalance(uid):
+    return Balance.query.filter(Balance.seller == uid).all()
 
+def updateToken(uid, new_token):
+    user = UserConfig.query.filter(UserConfig.uid == uid).one_or_none()
+    if user:
+        try:
+            user.api_key = new_token
+            db.session.commit()
+            return True
+        except:
+            db.session.rollback()
+            return False
+    else:
+        print(f'User {uid} not found')

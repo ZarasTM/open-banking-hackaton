@@ -1,13 +1,9 @@
 import logging
-
 import enablebanking
-
 import util
-
 import datetime
 
 logging.getLogger().setLevel(logging.INFO)
-
 REDIRECT_URL = "http://localhost:5005"  # PUT YOUR REDIRECT URI HERE
 
 def nordea_settings():
@@ -24,15 +20,11 @@ def nordea_settings():
         "consentId": None,
         "accessToken": None,
         "refreshToken": None
-
     }
-
 
 def main():
     api_client = enablebanking.ApiClient("Alior", connector_settings=nordea_settings())  # Create client instance.
-
     auth_api = enablebanking.AuthApi(api_client)  # Create authentication interface.
-
     auth_url = auth_api.get_auth(
         response_type="code",  # OAuth2 response type
         redirect_uri=REDIRECT_URL,  # redirect URI
