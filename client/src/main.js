@@ -2,11 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import Vuent from 'vuent'
+import BootstrapVue from 'bootstrap-vue'
+
+Vue.use(BootstrapVue)
 
 Vue.config.productionTip = false
-Vue.use(Vuent)
-
 
 new Vue({
   router,

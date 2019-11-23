@@ -1,10 +1,9 @@
 module.exports = {
     css: {
-      loaderOptions: {
-        sass: {
-          data: `@import "@/assets/styles/yati.scss";`
+        loaderOptions: {
+            sass: {
+                prependData: `@import "@/assets/styles/yati.scss";`
+            }
         }
-      }
     }
-  };
-  
+};
