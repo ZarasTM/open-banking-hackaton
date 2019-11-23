@@ -1,4 +1,5 @@
 README.md
+setup.cfg
 setup.py
 enablebanking/__init__.py
 enablebanking/api_client.py
