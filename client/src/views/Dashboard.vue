@@ -4,8 +4,9 @@
                 <div class="company-name text-white"><v-icon class="v-icon company-icon" name="briefcase"></v-icon>{{companyName}}</div></template>
 
             <template v-slot:lead>
-                <div class="text-white">Balance: {{tin}}</div>
-                <div class="text-white">tin: {{tin}}</div>
+                <div class="text-white">TIN: {{tin}}</div>
+                <div class="text-white">Balance: {{tin}} PLN</div>
+
             </template>
             <b-button @click="goToTransactions()" variant="info">
                 <v-icon class="v-icon" name="book"></v-icon>Transactions</b-button>
@@ -21,7 +22,7 @@
                     </div>
 
                     <p class="mb-1">
-                        tin: {{company.tin}}
+                        TIN: {{company.tin}}
                     </p>
 
                     <small>{{company.address}}</small>
@@ -95,5 +96,4 @@
     .company-icon{
         width: 3.5rem;
     }
-
 </style>
