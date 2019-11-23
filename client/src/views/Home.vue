@@ -21,6 +21,6 @@ export default {
 </script>
 <style lang="scss" scoped>
   .home{
-    background: $grey;
+    background: $light-grey;
   }
 </style>

@@ -1,4 +1,23 @@
 %full-page {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
+}
+
+* {
+  border-radius: 0 !important;
+}
+
+.badge {
+  border-radius: 0.25rem !important;
+  display: flex !important;
+  align-items: center;
+}
+
+body {
+  font-family: "Segoe UI","Helvetica Neue","Lucida Grande","Roboto","Ebrima","Nirmala UI","Gadugi","Segoe Xbox Symbol","Segoe UI Symbol","Meiryo UI","Khmer UI","Tunga","Lao UI","Raavi","Iskoola Pota","Latha","Leelawadee","Microsoft YaHei UI","Microsoft JhengHei UI","Malgun Gothic","Estrangelo Edessa","Microsoft Himalaya","Microsoft New Tai Lue","Microsoft PhagsPa","Microsoft Tai Le","Microsoft Yi Baiti","Mongolian Baiti","MV Boli","Myanmar Text","Cambria Math";
+}
+
+.v-icon{
+  width: 1.5rem;
+  margin: 0 5px;
 }

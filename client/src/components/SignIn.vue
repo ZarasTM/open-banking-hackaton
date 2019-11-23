@@ -1,54 +1,69 @@
 <template>
-  <div>
-    <form action="#">
-      <div class="form-label-group">
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label class="hidden" for="inputEmail">Email address</label>
-      </div>
+    <div>
+        <b-form @submit="" @reset="">
+            <b-form-group
+                    id="email-input"
+                    label="Email address:"
+                    label-for="input-1"
+            >
+                <b-form-input
+                        id="input-1"
+                        type="email"
+                        required
+                        placeholder="Enter email"
+                ></b-form-input>
+            </b-form-group>
 
-      <div class="form-label-group">
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <label class="hidden"  for="inputPassword">Password</label>
-      </div>
+            <b-form-group
+                    id="password-input"
+                    label="Password:"
+                    label-for="input-2"
+            >
+                <b-form-input
+                        id="input-2"
+                        type="password"
+                        required
+                        placeholder="Password"
+                ></b-form-input>
+            </b-form-group>
 
-      <div class="custom-control custom-checkbox mb-3">
-        <input type="checkbox" class="custom-control-input" id="customCheck1">
-        <label class="custom-control-label" for="customCheck1">Remember password</label>
-      </div>
-    </form>
-    <button @click="login" class="btn  btn-info btn-block" type="submit">Sign In</button>
-  </div>
+
+            <b-button type="submit" block variant="info">
+                <span>Sign In</span><v-icon class="v-icon" name="log-in"></v-icon></b-button>
+        </b-form>
+    </div>
 </template>
 
 <script>
 
-export default {
-  name: 'SignIn',
-  data: () => {
-    return {
-      email: '',
-      pass: ''
+    export default {
+        name: 'SignIn',
+        data: () => {
+            return {
+                email: '',
+                pass: ''
+            }
+        },
+        methods: {
+            login: function () {
+                this.$router.push('dashboard');
+            }
+        }
     }
-  },
-  methods: {
-    login: function(){
-      this.$router.push('dashboard');
-    }
-  }
-}
 </script>
 
 <style scoped lang="scss">
-  .hidden {
-    visibility: hidden;
-  }
-  .btn-google {
-    color: white;
-    background-color: #ea4335;
-  }
+    .hidden {
+        visibility: hidden;
+    }
 
-  .btn-facebook {
-    color: white;
-    background-color: #3b5998;
-  }
+    .btn-google {
+        color: white;
+        background-color: #ea4335;
+    }
+
+    .btn-facebook {
+        color: white;
+        background-color: #3b5998;
+    }
 </style>
