@@ -1,12 +1,16 @@
 <template>
     <div>
-        hello dash
+         <create-invoice/>
     </div>
 </template>
 
 <script>
+    import CreateInvoice from "@/components/CreateInvoice"
     export default {
-        name: "Dashboard"
+        name: "Dashboard",
+        components: {
+            CreateInvoice
+        }
     }
 </script>
 

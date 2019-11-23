@@ -1,9 +1,10 @@
 <template>
-  <div class="item">
+  <div>
         <span>{{item.name}}</span>
-        <span>{{item.amount}}</span>
-        <span>{{item.price}}</span>
-        <span>{{item.taxRate}}</span>
+        <span>{{item.quantity}}</span>
+        <span>{{item.unit}}</span>
+        <span>{{item.net_ppu}}</span>
+        <span>{{item.tax_rate}}</span>
         <button v-on:click="$emit('remove')">Remove</button>
   </div>
 </template>

@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Dashboard from "../views/Dashboard";
+import Dashboard from "../views/Dashboard"
+import Invoicing from "../views/Invoicing"
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard
+  },
+  {
+    path: '/invoicing',
+    name: 'invoicing',
+    component: Invoicing
   }
 ];
 

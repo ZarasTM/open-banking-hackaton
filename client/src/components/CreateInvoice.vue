@@ -1,27 +1,27 @@
 <template>
   <div class="container">
     <div class="company-data">
-        <!-- TDOD: Repair "legacy" code xD -->
-        <vnt-header>
-            <span slot="header">{{seller.name}}</span>
-            <span slot="subheader">{{seller.address}}</span>
-            <span slot="subheader">{{seller.nip}}</span>
-            <span slot="subheader">{{seller.bankAccount}}</span>
-        </vnt-header>
-        <vnt-header>
-            <span slot="header">{{buyer.name}}</span>
-            <span slot="subheader">{{buyer.address}}</span>
-            <span slot="subheader">{{buyer.nip}}</span>
-            <span slot="subheader">{{buyer.bankAccount}}</span>
-        </vnt-header>
+        <div>
+            <span>{{seller.name}}</span>
+            <span>{{seller.address}}</span>
+            <span>{{seller.nip}}</span>
+            <span>{{seller.bankAccount}}</span>
+        </div>
+        <div>
+            <span>{{buyer.name}}</span>
+            <span>{{buyer.address}}</span>
+            <span>{{buyer.nip}}</span>
+            <span>{{buyer.bankAccount}}</span>
+        </div>
     </div>
     <div class="inner">
-      <vnt-header>Invoice items</vnt-header>
+      <span>Invoice items</span>
       <div>
         <input v-model="name" placeholder="Item"/>
-        <input v-model="amount" placeholder="Amount"/>
-        <input v-model="price" placeholder="Price"/>
-        <input v-model="taxRate" placeholder="Tax rate"/>
+        <input v-model="quantity" placeholder="Quantity"/>
+        <input v-model="unit" placeholder="Unit"/>
+        <input v-model="net_ppu" placeholder="Price"/>
+        <input v-model="tax_rate" placeholder="Tax rate"/>
         <button v-on:click="addItem">Add item</button>
       </div>
     </div>
@@ -52,10 +52,12 @@ export default {
             nip: ''
         },
         name: '',
-        amount: '',
-        price: '',
-        taxRate: '',
+        quantity: '',
+        unit: '',
+        net_ppu: '',
+        tax_rate: '',
         invoiceTitle: '',
+        currency: 'PLN',
         invoiceItems: []
     }
   },
@@ -63,18 +65,36 @@ export default {
       addItem: function () {
         this.invoiceItems.push({
             name: this.name,
-            amount: this.amount,
-            price: this.price,
-            taxRate: this.taxRate
+            quantity: parseInt(this.quantity),
+            unit: this.unit,
+            net_ppu: parseInt(this.net_ppu),
+            tax_rate: parseInt(this.tax_rate)
         })
         this.name = ''
-        this.amount = ''
-        this.price = ''
-        this.taxRate = ''
+        this.quantity = ''
+        this.unit = ''
+        this.net_ppu = ''
+        this.tax_rate = ''
       },
       async invoice () {
-          InvoiceService.getUserData({ tin: this.seller.nip })
-          InvoiceService.getUserData({ tin: this.buyer.nip })
+        console.log({
+          seller_nip: this.seller.nip,
+          buyer_nip: this.buyer.nip,
+          title: this.title,
+          currency: this.currency,
+          items: this.invoiceItems
+        })
+        InvoiceService.createInvoice({
+          seller_nip: this.seller.nip,
+          buyer_nip: this.buyer.nip,
+          title: this.title,
+          currency: this.currency,
+          items: this.invoiceItems
+        }).then (response => {
+          console.log(response)
+        })
+          // InvoiceService.getUserData({ tin: this.seller.nip })
+          // InvoiceService.getUserData({ tin: this.buyer.nip })
       }
   },
   components: {
