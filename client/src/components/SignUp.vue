@@ -65,7 +65,7 @@
 
            <b-form-group
                    	id="tin-input"
-                   	label="tin:"
+                   	label="TIN:"
                    	label-for="input-4"
            >
              <b-form-input
@@ -73,7 +73,7 @@
                     type="text"
 					v-model="tin"
                     required
-                    placeholder="tin"
+                    placeholder="TIN"
              ></b-form-input>
            </b-form-group>
 

@@ -1,12 +1,15 @@
 <template>
     <div class="navbar">
-        <h1 class="text-white">YATI</h1>
-        <b-link to="/dashboard" router-tag="b-button" active-class="btn-info">
-             <v-icon class="v-icon" name="align-justify"/> <span>Dashboard</span></b-link>
-        <b-link to="/transactions" router-tag="b-button" active-class="btn-info">
-            <v-icon class="v-icon" name="book"/><span>Transactions</span></b-link>
-        <b-link to="/invoicing" router-tag="b-button" active-class="btn-info">
-            <v-icon class="v-icon" name="file-text"/><span>Invoices</span></b-link>
+        <div class="nav">
+            <h1 class="text-white">YATI</h1>
+            <b-link to="/dashboard" router-tag="b-button" active-class="btn-info">
+                <v-icon class="v-icon" name="align-justify"/> <span>Dashboard</span></b-link>
+            <b-link to="/transactions" router-tag="b-button" active-class="btn-info">
+                <v-icon class="v-icon" name="book"/><span>Transactions</span></b-link>
+            <b-link to="/invoicing" router-tag="b-button" active-class="btn-info">
+                <v-icon class="v-icon" name="file-text"/><span>Invoices</span></b-link>
+        </div>
+        <b-button block variant="danger"><v-icon class="v-icon" name="log-out"/> Log out</b-button>
     </div>
 </template>
 
@@ -28,8 +31,16 @@
         z-index: 100;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
+        justify-content: space-between;
+
+
+        .nav{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
 
         .btn{
             width: 100%;
