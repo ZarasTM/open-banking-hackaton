@@ -1,6 +1,8 @@
 <template>
 <div class="container">
-    <b-row>
+    <h1>Invoice: {{invoiceData.title}}</h1>
+    <h2>{{invoiceData.timestamp}}</h2>
+    <b-row class="padding-lol">
         <b-col>
             <b-row>{{invoiceData.seller.name}}</b-row>
             <b-row>{{invoiceData.seller.address}}</b-row>
@@ -14,17 +16,13 @@
             <b-row>{{invoiceData.buyer.account_number }}</b-row>
         </b-col>
     </b-row>
-
+    <hr class="my-4">
     <div class="item-data">
-      <span>Items</span>
-        <invoice-item v-for="item in invoiceData.items" :item="item" :enableRemove="false"/>
-        <span>{{invoiceData.amount}} {{invoiceData.currency}}</span>
-        <span>{{invoiceData.amount_paid}} {{invoiceData.currency}}</span>
-    </div>
-    <div class="invoice-footer">
-        <span>{{invoiceData.title}}</span>
-        <span>{{invoiceData.timestamp}}</span>
-        <button v-on:click="$emit('closeDisplay')">Close</button>
+      <h2>Items</h2>
+<!--        <invoice-item v-for="item in invoiceData.items" :item="item" :enableRemove="false"/>-->
+        <b-table striped :items="invoiceData.items"></b-table>
+        <h4>Total: {{invoiceData.amount}} {{invoiceData.currency}}</h4>
+        <h4>Already paid: {{invoiceData.amount_paid}} {{invoiceData.currency}}</h4>
     </div>
   </div>
 </template>
@@ -48,4 +46,8 @@ export default {
 </script>
 
 <style scoped>
+    .padding-lol{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 </style>

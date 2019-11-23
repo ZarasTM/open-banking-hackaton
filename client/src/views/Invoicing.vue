@@ -13,6 +13,9 @@
                 ></b-input>
                 <b-button @click="setInvoice" variant="primary">
                     <v-icon class="v-icon" name="edit"/>Create invoice</b-button>
+                <b-modal v-model="createInvoice" size="xl" title="Create invoice">
+                    <create-invoice/>
+                </b-modal>
             </b-form>
         </b-row>
 
@@ -52,7 +55,7 @@
         },
         methods: {
             async setInvoice () {
-
+                this.createInvoice = true;
             },
             async getInvoice () {
                 /* TODO: uncomment when endpoint setup
