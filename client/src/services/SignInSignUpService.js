@@ -9,5 +9,8 @@ export default {
   },
   isLogged() {
     return httpClient.post('/auth/isLogged');
+  },
+  logOut(){
+    return httpClient.post('/auth/logout');
   }
 };
