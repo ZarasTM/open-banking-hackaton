@@ -20,7 +20,7 @@
         margin: 0;
         padding: 50px 15px;
         min-width: $nav-width;
-        background-color: $dark-grey;
+        background: linear-gradient(to bottom, rgb(73, 73, 73) 0%, rgb(56, 56, 56) 100%);
         position: fixed;
         height: 100%;
         overflow: auto;

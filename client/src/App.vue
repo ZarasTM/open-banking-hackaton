@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <navbar v-if=""/>
+    <navbar/>
     <router-view class="router"/>
   </div>
 </template>
@@ -24,10 +24,21 @@
   padding-left: $nav-width+50px;
   position: absolute;
   top: 0;
-  background: $light-grey;
+  background: linear-gradient(to bottom, rgb(114, 113, 113) 0%, rgb(78, 78, 78) 100%);
+  
 }
-  .jumbotron{
-    margin-bottom: 0 !important;
-  }
+
+.jumbotron{
+  margin-bottom: 0 !important;
+}
+
+.btn-default{
+  background-color: #68889E;
+  color:#FFF;
+  border-color: #2F3E48;
+}
 
 </style>
+
+#185598
+#59B896
