@@ -4,7 +4,7 @@
              <v-icon class="v-icon" name="align-justify"/> <span>Dashboard</span></b-link>
         <b-link to="/transactions" router-tag="b-button" active-class="btn-info">
             <v-icon class="v-icon" name="book"/><span>Transactions</span></b-link>
-        <b-link to="/invoices" router-tag="b-button" active-class="btn-info">
+        <b-link to="/invoicing" router-tag="b-button" active-class="btn-info">
             <v-icon class="v-icon" name="file-text"/><span>Invoices</span></b-link>
     </div>
 </template>

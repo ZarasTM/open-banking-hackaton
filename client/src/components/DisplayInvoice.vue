@@ -1,19 +1,20 @@
 <template>
 <div class="container">
-    <div class="company-data">
-        <div>
-            <span>{{invoiceData.seller.name}}</span>
-            <span>{{invoiceData.seller.address}}</span>
-            <span>{{invoiceData.seller.tin}}</span>
-            <span>{{invoiceData.seller.account_number }}</span>
-        </div>
-        <div>
-            <span>{{invoiceData.buyer.name}}</span>
-            <span>{{invoiceData.buyer.address}}</span>
-            <span>{{invoiceData.buyer.tin}}</span>
-            <span>{{invoiceData.buyer.account_number}}</span>
-        </div>
-    </div>
+    <b-row>
+        <b-col>
+            <b-row>{{invoiceData.seller.name}}</b-row>
+            <b-row>{{invoiceData.seller.address}}</b-row>
+            <b-row>{{invoiceData.seller.tin}}</b-row>
+            <b-row>{{invoiceData.seller.account_number }}</b-row>
+        </b-col>
+        <b-col>
+            <b-row>{{invoiceData.buyer.name}}</b-row>
+            <b-row>{{invoiceData.buyer.address}}</b-row>
+            <b-row>{{invoiceData.buyer.tin}}</b-row>
+            <b-row>{{invoiceData.buyer.account_number }}</b-row>
+        </b-col>
+    </b-row>
+
     <div class="item-data">
       <span>Items</span>
         <invoice-item v-for="item in invoiceData.items" :item="item" :enableRemove="false"/>
