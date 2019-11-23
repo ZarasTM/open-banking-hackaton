@@ -5,16 +5,12 @@
 </template>
 
 <script>
-import SignIn from '@/components/SignIn.vue'
-import SignUp from "@/components/SignUp";
-import SignUpSignIn from "../components/SignUpSignIn";
+import SignUpSignIn from "@/components/SignUpSignIn";
 
 
 export default {
   name: 'Home',
   components: {
-    SignIn,
-    SignUp,
     SignUpSignIn
   }
 }
