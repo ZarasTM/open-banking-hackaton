@@ -32,64 +32,10 @@
 
 <script>
     export default {
-        name: "Dashboard",
-        data: ()=>{
-            return{
-                companyName: 'PolMachniax',
-                nip: '12356',
-                companies: [
-                    {
-                        name: 'Budnix',
-                        nip: '42069',
-                        address: 'ul. Piotrkowska 69',
-                        balance: 12345.67
-                    },
-                    {
-                        name: 'Piotreks Sp. Z o.o.',
-                        nip: '42069',
-                        address: 'ul. Michałowska 420',
-                        balance: -12345.67
-                    },
-                    {
-                        name: 'Budnix',
-                        nip: '42069',
-                        address: 'ul. Piotrkowska 69',
-                        balance: 12345.67
-                    },
-                    {
-                        name: 'Piotreks Sp. Z o.o.',
-                        nip: '42069',
-                        address: 'ul. Michałowska 420',
-                        balance: -12345.67
-                    },
-                    {
-                        name: 'Budnix',
-                        nip: '42069',
-                        address: 'ul. Piotrkowska 69',
-                        balance: 12345.67
-                    },
-                    {
-                        name: 'Piotreks Sp. Z o.o.',
-                        nip: '42069',
-                        address: 'ul. Michałowska 420',
-                        balance: -12345.67
-                    },
-                ]
-            }
-        },
-        methods:{
-            goToTransactions: function () {
-                this.$router.push('transactions');
-            }
-        }
+        name: "Dashboard"
     }
 </script>
 
 <style scoped>
-    .company-name{
-        display: flex;
-    }
-    .company-icon{
-        width: 3.5rem;
-    }
+
 </style>

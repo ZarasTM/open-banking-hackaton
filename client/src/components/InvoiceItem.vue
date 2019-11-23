@@ -1,10 +1,13 @@
 <template>
-  <div class="item">
+  <div>
         <span>{{item.name}}</span>
-        <span>{{item.amount}}</span>
-        <span>{{item.price}}</span>
-        <span>{{item.taxRate}}</span>
-        <button v-on:click="$emit('remove')">Remove</button>
+        <span>{{item.quantity}}</span>
+        <span>{{item.unit}}</span>
+        <span>{{item.net_ppu}}</span>
+        <span>{{item.tax_rate}}</span>
+        <div v-if="enableRemove">
+          <button v-on:click="$emit('remove')">Remove</button>
+        </div>
   </div>
 </template>
 
@@ -17,7 +20,8 @@ export default {
     }
   },
   props: {
-      item: Object
+      item: Object,
+      enableRemove: Boolean
   }
 }
 </script>
