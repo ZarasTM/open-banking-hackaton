@@ -6,8 +6,8 @@
         <b-card title="Card Title" no-body>
             <b-card-header header-tag="nav">
                 <b-nav card-header tabs>
-                    <b-nav-item :active="inActive"  @click="setIn()">In transaction</b-nav-item>
-                    <b-nav-item :active="!inActive" @click="setOut()">Out transaction</b-nav-item>
+                    <b-nav-item :active="inActive" @click="setIn()">In transactions</b-nav-item>
+                    <b-nav-item :active="!inActive" @click="setOut()">Out transactions</b-nav-item>
                 </b-nav>
             </b-card-header>
 
@@ -15,9 +15,16 @@
                 <b-list-group>
                     <b-list-group-item v-for="transaction in transactions" class="flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{transaction.name}}</h5>
-                            <b-badge variant="info" pill>{{transaction.amount}} PLN</b-badge>
+                            <h5 class="mb-1">{{transaction.title}}</h5>
+                            <b-badge v-if="transactions===inTransactions" variant="info" pill>{{transaction.amount}}
+                                {{transaction.currency}}
+                            </b-badge>
+                            <b-badge v-else variant="danger" pill>{{transaction.amount}} {{transaction.currency}}
+                            </b-badge>
                         </div>
+                        <p class="mb-1 text-left">
+                            {{transaction.other_party}}
+                        </p>
                     </b-list-group-item>
                 </b-list-group>
             </b-card-body>
@@ -28,10 +35,12 @@
 </template>
 
 <script>
+    import TransactionService from "../services/TransactionService";
+
     export default {
         name: "Transactions",
-        data: ()=>{
-            return{
+        data: () => {
+            return {
                 inActive: true,
                 inTransactions: [
                     {
@@ -57,8 +66,7 @@
                         amount: 12345.67
                     },
                 ],
-                transactions: [
-                ],
+                transactions: [],
             }
         },
         methods: {
@@ -72,7 +80,12 @@
             },
         },
         created() {
-            this.transactions = this.inTransactions
+            TransactionService.getTransactionsSummary().then(response => {
+                this.inTransactions = response.data.as_buyer
+                this.outTransactions = response.data.as_seller
+                this.transactions = this.inTransactions
+            })
+
         }
     }
 </script>

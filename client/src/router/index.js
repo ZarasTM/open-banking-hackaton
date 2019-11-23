@@ -4,8 +4,18 @@ import Home from '../views/Home.vue'
 import Dashboard from "../views/Dashboard"
 import Invoicing from "../views/Invoicing"
 import Transactions from "../views/Transactions";
+import store from "../store"
 
 Vue.use(VueRouter);
+
+const authGuard = (to, from, next) => {
+  if (!store.state.isUserLoggedIn) {
+    next('');
+  } else {
+    next();
+  }
+};
+
 
 const routes = [
   {
@@ -16,16 +26,19 @@ const routes = [
   {
     path: '/dashboard',
     name: 'dashboard',
+    beforeEnter: authGuard,
     component: Dashboard
   },
   {
     path: '/invoicing',
     name: 'invoicing',
+    beforeEnter: authGuard,
     component: Invoicing
   },
   {
     path: '/transactions',
     name: 'transactions',
+    beforeEnter: authGuard,
     component: Transactions
   }
 ];

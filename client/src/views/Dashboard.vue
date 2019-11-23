@@ -59,7 +59,7 @@
         },
         beforeCreate: async function () {
             DashboardService.fetchUserData().then((response) => {
-                this.name = response.data.user_inv_data.name
+                this.companyName = response.data.user_inv_data.name
                 this.tin = response.data.user_inv_data.tin
                 this.companies = response.data.balances
                 const user = {

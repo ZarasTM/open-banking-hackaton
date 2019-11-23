@@ -15,7 +15,6 @@ export default {
     SignUpSignIn
   },
   beforeCreate: async function () {
-    console.log('init');
     HttpService.isLogged().then((response) => {
       console.log(response.status
       );

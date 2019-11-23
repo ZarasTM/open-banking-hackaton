@@ -86,8 +86,10 @@
                     remember: this.remember,
                     totp_code: this.totp_code
                 }).then(response => {
-                    this.$router.push('dashboard');
-                    this.$store.dispatch('logIn');
+                    if (response.status == 200) {
+                        this.$store.dispatch('logIn');
+                        this.$router.push('dashboard');
+                    }
                 })
             },
             showAuthCodeModal: function () {
