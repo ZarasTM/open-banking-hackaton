@@ -1,107 +1,144 @@
 <template>
-  <div class="container">
-    <div class="company-data">
+    <div class="container">
+        <input v-model="invoiceTitle" placeholder="Invoice title"/>
+        <b-row class="padding-lol">
+            <b-col>
+                <b-row>{{seller.name}}</b-row>
+                <b-row>{{seller.address}}</b-row>
+                <b-row>{{seller.tin}}</b-row>
+                <b-row>{{seller.bankAccount }}</b-row>
+            </b-col>
+            <b-col>
+                <b-row>{{buyer.name}}</b-row>
+                <b-row>{{buyer.address}}</b-row>
+                <b-row>{{buyer.tin}}</b-row>
+                <b-row>{{buyer.bankAccount }}</b-row>
+            </b-col>
+        </b-row>
+        <hr class="my-4">
+        <h5>Invoice items</h5>
         <div>
-            <span>{{seller.name}}</span>
-            <span>{{seller.address}}</span>
-            <span>{{seller.nip}}</span>
-            <span>{{seller.bankAccount}}</span>
+            <invoice-item v-for="item in invoiceItems" :item="item" :enableRemove="true"
+                          v-on:remove="invoiceItems.splice(invoiceItems.indexOf(item), 1)"/>
         </div>
-        <div>
-            <span>{{buyer.name}}</span>
-            <span>{{buyer.address}}</span>
-            <span>{{buyer.nip}}</span>
-            <span>{{buyer.bankAccount}}</span>
+        <div class="inner">
+
+            <b-form inline>
+                <label class="sr-only" for="inline-form-input-name">Name</label>
+                <b-input
+                        id="inline-form-input-name"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        v-model="name" placeholder="Item"
+                ></b-input>
+
+                <b-input
+                        id="inline-form-input-name"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        v-model="quantity" placeholder="Quantity"
+                ></b-input>
+
+                <b-input
+                        id="inline-form-input-name"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        v-model="unit" placeholder="Unit"
+                ></b-input>
+
+                <b-input
+                        id="inline-form-input-name"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        v-model="net_ppu" placeholder="Price"
+                ></b-input>
+
+                <b-input
+                        id="inline-form-input-name"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        v-model="tax_rate" placeholder="Tax rate"
+                ></b-input>
+
+
+                <b-button style="margin-top: 15px;" v-on:click="addItem" variant="primary">Add item</b-button>
+            </b-form>
         </div>
+
+
     </div>
-    <div class="inner">
-      <span>Invoice items</span>
-      <div>
-        <input v-model="name" placeholder="Item"/>
-        <input v-model="quantity" placeholder="Quantity"/>
-        <input v-model="unit" placeholder="Unit"/>
-        <input v-model="net_ppu" placeholder="Price"/>
-        <input v-model="tax_rate" placeholder="Tax rate"/>
-        <button v-on:click="addItem">Add item</button>
-      </div>
-    </div>
-    <div>
-        <invoice-item v-for="item in invoiceItems" :item="item" :enableRemove="true" v-on:remove="invoiceItems.splice(invoiceItems.indexOf(item), 1)"/>
-    </div>
-    <input v-model="invoiceTitle" placeholder="Invoice title"/>
-    <button>Invoice</button>
-  </div>
 </template>
 
 <script>
-import InvoiceItem from "@/components/InvoiceItem"
-import InvoiceService from "@/services/InvoiceService"
+    import InvoiceItem from "@/components/InvoiceItem"
+    import InvoiceService from "@/services/InvoiceService"
 
-export default {
-  name: 'CreateInvoice',
-  data: () => {
-    return {
-        seller: {
-            address: '',
-            name: '',
-            nip: ''
+    export default {
+        name: 'CreateInvoice',
+        data: () => {
+            return {
+                seller: {
+                    address: 'sss',
+                    name: 'sss',
+                    nip: 'sss',
+                    bankAccount: '213123'
+                },
+                buyer: {
+                    address: 'sss',
+                    name: 'aasd',
+                    nip: 'asdas',
+                    bankAccount: '213123'
+                },
+                name: '',
+                quantity: '',
+                unit: '',
+                net_ppu: '',
+                tax_rate: '',
+                invoiceTitle: '',
+                currency: 'PLN',
+                invoiceItems: []
+            }
         },
-        buyer: {
-            address: '',
-            name: '',
-            nip: ''
+        methods: {
+            addItem: function () {
+                this.invoiceItems.push({
+                    name: this.name,
+                    quantity: parseInt(this.quantity),
+                    unit: this.unit,
+                    net_ppu: parseInt(this.net_ppu),
+                    tax_rate: parseInt(this.tax_rate)
+                })
+                this.name = ''
+                this.quantity = ''
+                this.unit = ''
+                this.net_ppu = ''
+                this.tax_rate = ''
+            },
+            async invoice() {
+                console.log({
+                    seller_nip: this.seller.nip,
+                    buyer_nip: this.buyer.nip,
+                    title: this.title,
+                    currency: this.currency,
+                    items: this.invoiceItems
+                })
+                InvoiceService.createInvoice({
+                    seller_nip: this.seller.nip,
+                    buyer_nip: this.buyer.nip,
+                    title: this.title,
+                    currency: this.currency,
+                    items: this.invoiceItems
+                }).then(response => {
+                    console.log(response)
+                })
+                // InvoiceService.getUserData({ tin: this.seller.nip })
+                // InvoiceService.getUserData({ tin: this.buyer.nip })
+            }
         },
-        name: '',
-        quantity: '',
-        unit: '',
-        net_ppu: '',
-        tax_rate: '',
-        invoiceTitle: '',
-        currency: 'PLN',
-        invoiceItems: []
+        components: {
+            InvoiceItem
+        }
     }
-  },
-  methods: {
-      addItem: function () {
-        this.invoiceItems.push({
-            name: this.name,
-            quantity: parseInt(this.quantity),
-            unit: this.unit,
-            net_ppu: parseInt(this.net_ppu),
-            tax_rate: parseInt(this.tax_rate)
-        })
-        this.name = ''
-        this.quantity = ''
-        this.unit = ''
-        this.net_ppu = ''
-        this.tax_rate = ''
-      },
-      async invoice () {
-        console.log({
-          seller_nip: this.seller.nip,
-          buyer_nip: this.buyer.nip,
-          title: this.title,
-          currency: this.currency,
-          items: this.invoiceItems
-        })
-        InvoiceService.createInvoice({
-          seller_nip: this.seller.nip,
-          buyer_nip: this.buyer.nip,
-          title: this.title,
-          currency: this.currency,
-          items: this.invoiceItems
-        }).then (response => {
-          console.log(response)
-        })
-          // InvoiceService.getUserData({ tin: this.seller.nip })
-          // InvoiceService.getUserData({ tin: this.buyer.nip })
-      }
-  },
-  components: {
-      InvoiceItem
-  }
-}
 </script>
 
 <style scoped>
+    .padding-lol{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 </style>
