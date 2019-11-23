@@ -42,6 +42,7 @@
     import CreateInvoice from "@/components/CreateInvoice"
     import DisplayInvoice from "@/components/DisplayInvoice"
     import InvoiceService from "@/services/InvoiceService"
+    
     export default {
         name: "Invoicing",
         data: () => {
@@ -112,6 +113,9 @@
             closeDisplay: function () {
                 this.displayInvoice = false;
                 this.currentInvoice = null;
+            },
+            async crtInvoice () {
+                eventBus.$emit('createInvoice')
             }
         },
         components: {

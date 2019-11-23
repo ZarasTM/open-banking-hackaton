@@ -1,7 +1,7 @@
 import { httpClient } from './HttpClient';
 
 export default {
-  register(userData) {
-    return httpClient.post('/auth/register', userData);
+  fetchUserData() {
+    return httpClient.post('/user/fetchUserData');
   }
 };

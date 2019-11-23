@@ -12,7 +12,7 @@
                 <b-row>{{buyer.name}}</b-row>
                 <b-row>{{buyer.address}}</b-row>
                 <b-row>{{buyer.tin}}</b-row>
-                <b-row>{{buyer.bankAccount }}</b-row>
+                <b-row>{{buyer.bankAccount}}</b-row>
             </b-col>
         </b-row>
         <hr class="my-4">
@@ -107,13 +107,6 @@
                 this.tax_rate = ''
             },
             async invoice() {
-                console.log({
-                    seller_nip: this.seller.tin,
-                    buyer_nip: this.buyer.tin,
-                    title: this.title,
-                    currency: this.currency,
-                    items: this.invoiceItems
-                })
                 InvoiceService.createInvoice({
                     seller_nip: this.seller.tin,
                     buyer_nip: this.buyer.tin,
