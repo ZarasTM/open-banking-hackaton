@@ -7,7 +7,7 @@
             <b-card-header header-tag="nav">
                 <b-nav card-header tabs>
                     <b-nav-item :active="inActive"  @click="setIn()">In transaction</b-nav-item>
-                    <b-nav-item  :active="!inActive" @click="setOut()">Out transaction</b-nav-item>
+                    <b-nav-item :active="!inActive" @click="setOut()">Out transaction</b-nav-item>
                 </b-nav>
             </b-card-header>
 

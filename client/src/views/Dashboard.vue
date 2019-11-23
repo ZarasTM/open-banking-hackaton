@@ -5,7 +5,7 @@
 
             <template v-slot:lead>
                 <div class="text-white">TIN: {{tin}}</div>
-                <div class="text-white">Balance: {{tin}} PLN</div>
+                <div class="text-white">Balance: {{balance}} PLN</div>
 
             </template>
             <b-button @click="goToTransactions()" variant="info">
@@ -50,9 +50,10 @@
             },
             calculateBalance(){
                 let balance = 0
-                for(company in this.companies){
+                this.companies.forEach(function (company) {
+                    console.log(company.amount)
                     balance += company.amount
-                }
+                })
                 this.balance = balance
             }
         },
@@ -61,6 +62,13 @@
                 this.name = response.data.user_inv_data.name
                 this.tin = response.data.user_inv_data.tin
                 this.companies = response.data.balances
+                const user = {
+                    name: response.data.user_inv_data.name,
+                    address: response.data.user_inv_data.address,
+                    tin: response.data.user_inv_data.tin,
+                    account_number: response.data.user_inv_data.account_number
+                }
+                this.$store.dispatch('setUser', user)
                 this.calculateBalance()
             });
         }

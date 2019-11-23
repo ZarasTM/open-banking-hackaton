@@ -10,7 +10,7 @@ export default {
   isLogged() {
     return httpClient.post('/auth/isLogged');
   },
-  logOut(){
+  logout(){
     return httpClient.post('/auth/logout');
   }
 };

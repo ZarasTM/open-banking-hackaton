@@ -26,7 +26,7 @@
             async logout(){
                 HttpService.logout().then(resp=>{
                     this.$store.dispatch('logOut');
-                    this.$router.push('home');
+                    this.$router.push('/');
                 });
 
             }

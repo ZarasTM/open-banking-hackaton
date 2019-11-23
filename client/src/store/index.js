@@ -7,6 +7,7 @@ export default new Vuex.Store({
   strict: true,
   state: {
     isUserLoggedIn: false,
+    user: {}
   },
   mutations: {
     logIn(state){
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     logOut(state){
       state.isUserLoggedIn = false
     },
+    setUser(state, user){
+      state.user = user 
+    }
   },
   actions: {
     logIn({commit}){
@@ -22,6 +26,9 @@ export default new Vuex.Store({
     },
     logOut({commit}){
       commit('logOut');
+    },
+    setUser({commit}, user){
+      commit('setUser', user)
     }
   }
 })

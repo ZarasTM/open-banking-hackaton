@@ -9,5 +9,8 @@ export default {
   },
   getInvoiceData(invoiceId) {
     return httpClient.post('/invoice/getInvoiceData', invoiceId);
+  },
+  getInvoicesSummary() {
+    return httpClient.post('/invoice/getInvoicesSummary')
   }
 };
