@@ -23,7 +23,7 @@
   padding-left: $nav-width+50px;
   position: absolute;
   top: 0;
-  background: linear-gradient(to bottom, rgb(114, 113, 113) 0%, rgb(78, 78, 78) 100%);
+  background: linear-gradient(to bottom, rgb(100, 100, 100) 0%, rgb(75, 75, 75) 100%);
   
 }
 
