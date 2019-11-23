@@ -16,7 +16,7 @@
     </div>
     <div class="item-data">
       <span>Items</span>
-        <invoice-item v-for="item in invoiceData.items"/>
+        <invoice-item v-for="item in invoiceData.items" :item="item" :enableRemove="false"/>
         <span>{{invoiceData.amount}} {{invoiceData.currency}}</span>
         <span>{{invoiceData.amount_paid}} {{invoiceData.currency}}</span>
     </div>

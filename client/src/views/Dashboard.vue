@@ -1,15 +1,15 @@
 <template>
     <div>
-         <create-invoice/>
+         <invoicing/>
     </div>
 </template>
 
 <script>
-    import CreateInvoice from "@/components/CreateInvoice"
+    import Invoicing from "@/views/Invoicing"
     export default {
         name: "Dashboard",
         components: {
-            CreateInvoice
+            Invoicing
         }
     }
 </script>

@@ -26,10 +26,10 @@
       </div>
     </div>
     <div>
-        <invoice-item v-for="item in invoiceItems" :item="item" v-on:remove="invoiceItems.splice(invoiceItems.indexOf(item), 1)"/>
+        <invoice-item v-for="item in invoiceItems" :item="item" :enableRemove="true" v-on:remove="invoiceItems.splice(invoiceItems.indexOf(item), 1)"/>
     </div>
     <input v-model="invoiceTitle" placeholder="Invoice title"/>
-    <button v-on:click="invoice">Invoice</button>
+    <button>Invoice</button>
   </div>
 </template>
 

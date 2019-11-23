@@ -5,7 +5,9 @@
         <span>{{item.unit}}</span>
         <span>{{item.net_ppu}}</span>
         <span>{{item.tax_rate}}</span>
-        <button v-on:click="$emit('remove')">Remove</button>
+        <div v-if="enableRemove">
+          <button v-on:click="$emit('remove')">Remove</button>
+        </div>
   </div>
 </template>
 
@@ -18,7 +20,8 @@ export default {
     }
   },
   props: {
-      item: Object
+      item: Object,
+      enableRemove: Boolean
   }
 }
 </script>
