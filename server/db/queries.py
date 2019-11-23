@@ -52,6 +52,10 @@ def getUserSettings(email):
 
 ################################################################################# NEW CONCEPT
 
+def getUIDByTin(tin):
+    return UserInvoice.query.filter(UserInvoice.tin == tin).one_or_none().uid
+
+
 def emailRegistered(email):
     """
     :input: email address
@@ -128,7 +132,7 @@ def calculateSubtotal(items):
     for item in items: 
         item_price = item['net_ppu']
         item_tax_rate = item['tax_rate']
-        item_tax = item_tax_rate * item_price
+        item_tax = (item_tax_rate * 0.01) * item_price
         item_total = item_price + item_tax
         sum += round(item_total * item['quantity'], 2)
     return sum
@@ -147,13 +151,13 @@ def addNewInvoice(seller, buyer, name, items, currency='PLN'):
         return False
 
 def getMatchingInvoice(seller, buyer, name, amount):
-    numbers = [int(s) for s in str.split() if s.isdigit()]
+    numbers = [int(s) for s in name.split() if s.isdigit()]
     #FOUND IID (likely)
     if numbers:
         number = numbers[0]
         #TODO: improve
-        return Invoice.query.filter(Invoice.seller == seller and
-        Invoice.buyer == buyer and Invoice.iid == number).one_or_none()
+        # return Invoice.query.filter(Invoice.seller == seller and Invoice.buyer == buyer and Invoice.iid == number).one_or_none()
+        return Invoice.query.filter(Invoice.seller == seller).filter(Invoice.buyer == buyer).filter(Invoice.iid == number).one_or_none()
     else:
         return None
 
@@ -210,8 +214,8 @@ def updateBalances(interaction):
     buyer = interaction.buyer
     amount = interaction.amount
     currency = interaction.currency
-    balance_record1 = Balance.query.filter(Balance.seller == seller and Balance.buyer == buyer).one_or_none()
-    balance_record2 = Balance.query.filter(Balance.seller == buyer and Balance.buyer == seller).one_or_none()
+    balance_record1 = Balance.query.filter(Balance.seller == seller).filter(Balance.buyer == buyer).one_or_none()
+    balance_record2 = Balance.query.filter(Balance.seller == buyer).filter(Balance.buyer == seller).one_or_none()
     #Try/except/commit/rollback in the calling functions
     if balance_record1 and balance_record2:
         #update them 1 - seller is seller, transfer amount, 2 - amount * -1
@@ -241,3 +245,6 @@ def updateToken(uid, new_token):
             return False
     else:
         print(f'User {uid} not found')
+
+def getTokenByUid(uid):
+    return UserConfig.query.filter(UserConfig.uid == uid).one_or_none().api_key

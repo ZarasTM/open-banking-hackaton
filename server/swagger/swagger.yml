@@ -410,7 +410,7 @@ components:
     TransactionsSummaryItem:
       type: object
       properties:
-        ransaction_id:
+        transaction_id:
           type: string
         title:
           type: string
