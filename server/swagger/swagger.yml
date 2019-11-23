@@ -1,0 +1,443 @@
+openapi: 3.0.0
+info:
+  title: YATI API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.0.1
+
+paths:
+  ######################################
+  ################ CORE ################
+  ######################################
+  /status:
+    get:
+      operationId: endpoints.api-core.status
+      tags: [API Core, Services]
+      summary: Checks services' statuses
+      responses:
+        200:
+          description: Returns list of statuses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusRes'
+  
+  ######################################
+  ############## USER DATA #############
+  ######################################
+  /user/fetchUserData:
+    post:
+      operationId: endpoints.user-account.fetchUserData
+      tags: [User, Balances]
+      responses:
+        200:
+          description: Returns user invoice data and its balances
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserData'
+
+  ######################################
+  ########### AUTHENTICATION ###########
+  ######################################
+  /auth/login:
+    post:
+      operationId: endpoints.authentication.login
+      tags: [Users, Register]
+      summary: Authorizes users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginReq'
+              
+      responses:
+        200:
+          description: Login successful
+        401:
+          description: Login unsuccessful
+
+  /auth/logout:
+    post:
+      operationId: endpoints.authentication.logout
+      tags: [Users, Register]
+      summary : Logs current user out
+      responses:
+        200:
+          description: Logout successful
+        401:
+          description: Logout unsuccessful
+
+  /auth/isLogged:
+    post:
+      operationId: endpoints.authentication.isLogged
+      tags: [Users, Register]
+      responses:
+        200:
+          description: User logged in
+        401:
+          description: User not logged in
+        
+  /auth/register:
+    post:
+      operationId: endpoints.authentication.register
+      tags: [Users, Register]
+      summary: Creates new user
+      description: Checks email and username uniqueness; creates new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationReq'
+      responses:
+        200:
+          description: Account created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totp_secret:
+                    type: string
+                  totp_link:
+                    type: string
+        409:
+          description: Username or e-mail taken. Be more original
+        500:
+          description: Database error
+
+  ######################################
+  ############## INVOICES ##############
+  ######################################
+  
+  /invoice/getUserData:
+    post:
+      operationId: endpoints.user-account.getUserInvoiceConfig
+      tags: [Users, Invoice]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tin:
+                  type: string
+      responses:
+        200:
+          description: Company data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInvoiceInfo'
+
+  /invoice/getInvoice:
+    post:
+      operationId: endpoints.invoices.getInvoice
+      tags: [Invoice]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                invoice_id:
+                  type: string
+      responses:
+        200:
+          description: Querry succesfully executed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceRes'
+
+
+  /invoice/getInvoicesSummary:
+    post:
+      operationId: endpoints.invoices.getInvoicesSummary
+      tags: [Invoice]
+      responses:
+        200:
+          description: Querry succesfully executed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoicesSummaryRes'
+
+  /invoice/createInvoice:
+    post:
+      operationId: endpoints.invoices.createInvoice
+      tags: [Invoice, Monetary]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceReq'
+      responses:
+        200:
+          description: Invoice created
+
+  ######################################
+  ############ TRANSACTIONS ############
+  ######################################
+
+  /transaction/getTransactionsSummary:
+    post:
+      operationId: endpoints.transactions.getTransactionsSummary
+      tags: [Invoice]
+      responses:
+        200:
+          description: Querry succesfully executed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionsSummaryRes'
+
+
+  ######################################
+  ############## TESTING ###############
+  ######################################
+
+  /test:
+    get:
+      operationId: endpoints.testing.test
+      responses:
+        200:
+          description: Test
+  
+  /update:
+    get:
+      operationId: endpoints.testing.update
+      responses:
+        200:
+          description: update
+        
+
+# All the response objects are named <x>Res (response); 
+# All the incoming objects are called <x>Req (request); 
+# For both they are called <x>Resq
+
+components:
+  schemas:
+    ### Core
+    StatusRes:
+      type: object
+      properties:
+        statuses: 
+          type: array
+          items: 
+            type: object
+            properties:
+              service_name:
+                type: string
+              service_status:
+                type: boolean
+              additional_info:
+                type: string
+            required:
+              [service_name, service_status]
+
+    ### Authetication
+    RegistrationReq:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        company_name:
+          type: string
+        tin:
+          type: string
+        address:
+          type: string
+        account_number:
+          type: string
+      required: [email, password, company_name, tin, address, account_number]
+
+    LoginReq:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        remember:
+          type: boolean
+        totp_code:
+          type: string
+      required: [email, password, remember, totp_code]
+
+    ### Users
+    UserInvoiceInfo:
+      type: object
+      properties:
+        uid:
+          type: integer
+        name: 
+          type: string
+        address:
+          type: string
+        account_number: 
+          type: string
+        tin:
+          type: string
+
+    UserConfig:
+      type: object
+      properties:
+        default_currency:
+          type: string
+        timezone:
+          type: string
+        api_key:
+          type: string
+        status:
+          type: integer
+
+    UserData:
+      type: object
+      properties:
+        user_inv_data:
+          $ref: '#/components/schemas/UserInvoiceInfo'
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Balance'
+
+    Balance:
+      type: object
+      properties:
+        balance_user: 
+          $ref: '#/components/schemas/UserInvoiceInfo'
+        amount:
+          type: number
+        currency:
+          type: string
+
+    ### Invoices
+    InvoiceProduct:
+      type: object
+      properties:
+        invoice_id:
+          type: string
+        name:
+          type: string
+        quantity:
+          type: number
+        unit:
+          type: string
+        tax_rate:
+          type: number
+        net_ppu:
+          type: number
+      required: [name, quantity, unit, tax_rate, net_ppu]
+
+    InvoicesSummaryItem:
+      type: object
+      properties:
+        invoice_id:
+          type: string
+        title:
+          type: string
+        other_party:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        date:
+          type: string
+
+    InvoicesSummaryRes:
+      type: object
+      properties:
+        as_seller:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoicesSummaryItem'
+        as_buyer:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoicesSummaryItem'
+
+    InvoiceRes:
+      type: object
+      properties:
+        invoice_id:
+          type: string
+        seller:
+          $ref: '#/components/schemas/UserInvoiceInfo'
+        buyer:
+          $ref: '#/components/schemas/UserInvoiceInfo'
+        timestamp:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        title:
+          type: string
+        items:
+          type: string
+        amount_paid:
+          type: number
+        payable:
+          type: integer
+
+    InvoiceReq:
+      type: object
+      properties:
+        seller_nip:
+          type: string
+        buyer_nip:
+          type: string
+        title:
+          type: string
+        currency:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceProduct'
+      required: [seller_nip, buyer_nip, title, items]
+        
+  ### Transactions
+        
+    TransactionsSummaryItem:
+      type: object
+      properties:
+        ransaction_id:
+          type: string
+        title:
+          type: string
+        other_party:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        date:
+          type: string
+
+    TransactionsSummaryRes:
+      type: object
+      properties:
+        as_seller:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionsSummaryItem'
+        as_buyer:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionsSummaryItem'
+
+    
+        
+
+
+
+
