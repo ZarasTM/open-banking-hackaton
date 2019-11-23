@@ -21,6 +21,7 @@ export default {
       );
       if (response.status === 200) {
         this.$router.push('dashboard');
+        this.$store.dispatch('logIn');
       } else {
         console.log('');
       }
@@ -29,4 +30,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+  .home{
+    padding-left: -($nav-width+50px);
+  }
 </style>

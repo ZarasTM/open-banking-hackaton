@@ -87,6 +87,7 @@
                     totp_code: this.totp_code
                 }).then(response => {
                     this.$router.push('dashboard');
+                    this.$store.dispatch('logIn');
                 })
             },
             showAuthCodeModal: function () {

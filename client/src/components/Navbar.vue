@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar">
+    <div v-if="isLoggedIn" class="navbar">
         <div class="nav">
             <h1 class="text-white">YATI</h1>
             <b-link to="/dashboard" router-tag="b-button" active-class="btn-info">
@@ -9,13 +9,28 @@
             <b-link to="/invoicing" router-tag="b-button" active-class="btn-info">
                 <v-icon class="v-icon" name="file-text"/><span>Invoices</span></b-link>
         </div>
-        <b-button block variant="danger"><v-icon class="v-icon" name="log-out"/> Log out</b-button>
+        <b-button @click="logout" block variant="danger"><v-icon class="v-icon" name="log-out"/> Log out</b-button>
     </div>
 </template>
 
 <script>
+    import HttpService from "@/services/SignInSignUpService";
     export default {
-        name: "Navbar"
+        name: "Navbar",
+        computed: {
+            isLoggedIn(){
+                return this.$store.state.isUserLoggedIn;
+            }
+        },
+        methods: {
+            async logout(){
+                HttpService.logout().then(resp=>{
+                    this.$store.dispatch('logOut');
+                    this.$router.push('home');
+                });
+
+            }
+        }
     }
 </script>
 
