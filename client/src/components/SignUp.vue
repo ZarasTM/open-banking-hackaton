@@ -1,130 +1,182 @@
 <template>
 
-    <b-form @submit="" @reset="" >
+    <div>
+		<b-form @submit.stop.prevent>
        <b-row>
          <b-col>
 
            <b-form-group
-                   id="email-input"
-                   label="Email address:"
-                   label-for="input-1"
+                   	id="email-input"
+                   	label="Email address:"
+                   	label-for="input-1"
            >
              <b-form-input
-                     id="input-1"
-                     type="email"
-                     required
-                     placeholder="Enter email"
+                    id="input-1"
+                    type="email"
+					v-model="email"
+                    required
+                    placeholder="Enter email"
              ></b-form-input>
            </b-form-group>
 
            <b-form-group
-                   id="password-input"
-                   label="Password:"
-                   label-for="input-2"
+                   	id="password-input"
+                   	label="Password:"
+                   	label-for="input-2"
            >
              <b-form-input
-                     id="input-2"
-                     type="password"
-                     required
-                     placeholder="Password"
+                    id="input-2"
+                    type="password"
+					v-model="password"
+                    required
+                    placeholder="Password"
              ></b-form-input>
            </b-form-group>
 
            <b-form-group
-                   id="password-confirm-input"
-                   label="Password confirm:"
-                   label-for="input-21"
+                   	id="password-confirm-input"
+                   	label="Password confirm:"
+                   	label-for="input-21"
            >
              <b-form-input
-                     id="input-21"
-                     type="password"
-                     required
-                     placeholder="Password confirm"
-             ></b-form-input>
-           </b-form-group>
-
-           <b-form-group
-                   id="api-input"
-                   label="Api Key:"
-                   label-for="input-7"
-           >
-             <b-form-input
-                     id="input-7"
-                     type="text"
-                     required
-                     placeholder="Api key"
+                    id="input-21"
+                    type="password"
+					v-model="passwordConfirm"
+                    required
+                    placeholder="Password confirm"
              ></b-form-input>
            </b-form-group>
          </b-col>
          <b-col>
            <b-form-group
-                   id="company-input"
-                   label="Company name:"
-                   label-for="input-3"
+                   	id="company-input"
+                   	label="Company name:"
+                   	label-for="input-3"
            >
              <b-form-input
-                     id="input-3"
-                     type="text"
-                     required
-                     placeholder="Company name"
+                    id="input-3"
+                    type="text"
+					v-model="company_name"
+                    required
+                    placeholder="Company name"
              ></b-form-input>
            </b-form-group>
 
            <b-form-group
-                   id="nip-input"
-                   label="NIP:"
-                   label-for="input-4"
+                   	id="nip-input"
+                   	label="NIP:"
+                   	label-for="input-4"
            >
              <b-form-input
-                     id="input-4"
-                     type="text"
-                     required
-                     placeholder="NIP"
+                    id="input-4"
+                    type="text"
+					v-model="tin"
+                    required
+                    placeholder="NIP"
              ></b-form-input>
            </b-form-group>
 
            <b-form-group
-                   id="address-input"
-                   label="Address:"
-                   label-for="input-5"
+                   	id="address-input"
+                   	label="Address:"
+                   	label-for="input-5"
            >
              <b-form-input
-                     id="input-5"
-                     type="text"
-                     required
-                     placeholder="Address"
+                    id="input-5"
+                    type="text"
+					v-model="address"
+                    required
+                    placeholder="Address"
              ></b-form-input>
            </b-form-group>
 
            <b-form-group
-                   id="iban-input"
-                   label="IBAN:"
-                   label-for="input-6"
+                   	id="iban-input"
+                   	label="Bank account:"
+                   	label-for="input-6"
            >
              <b-form-input
-                     id="input-6"
-                     type="text"
-                     required
-                     placeholder="IBAN"
+                    id="input-6"
+                    type="text"
+					v-model="account_number"
+                    required
+                    placeholder="Account number"
              ></b-form-input>
            </b-form-group>
          </b-col>
-       </b-row>
-        <b-button type="submit" block variant="info">
-            <span>Sign Up</span><v-icon class="v-icon" name="chevron-up"></v-icon></b-button>
+    	</b-row>
     </b-form>
+	<b-button @click="register" block variant="info">
+        <span>Sign Up</span>
+		<v-icon class="v-icon" name="chevron-up"></v-icon>
+	</b-button>
+    <b-modal v-model="qrVisible" size="xl" title="QR Code" @ok="closeQR">
+        <display-qr :qr="qr" :code="code"/>
+    </b-modal>
+	</div>
 </template>
 
 <script>
-
+	import DisplayQr from "@/components/DisplayQr"
+	import HttpService from "@/services/SignInSignUpService"
+	import QRCode from 'qrcode'
     export default {
         name: 'SignUp',
         data: () => {
             return {
                 email: '',
-                pass: ''
+				password: '',
+				passwordConfirm: '',
+				company_name: '',
+				tin: '',
+				address: '',
+				account_number: '',
+				qr: '',
+				code: '',
+				qrVisible: false,
+				opts: {
+      			  	errorCorrectionLevel: 'H',
+      			  	type: 'image/jpeg',
+      			  	quality: 1,
+      			  	margin: 1,
+      			  	color: {
+      			  	  	dark:"#010599FF",
+      			  	  	light:"#FFBF60FF"
+      			  	}
+      			}
             }
-        }
+        },
+        methods: {
+			async register () {
+				//if(this.password !== this.passwordConfirm) return
+
+				HttpService.register({
+					email: this.email,
+					password: this.password,
+					company_name: this.company_name,
+					tin: this.tin,
+					address: this.address,
+					account_number: this.account_number
+				}).then (response => {
+					console.log(decodeURIComponent(response.data.totp_link))
+					var that = this
+					QRCode.toDataURL(decodeURIComponent(response.data.totp_link), function (err, url) {
+						if (err) throw err
+
+  						that.qr = url
+					})
+					this.code = response.data.totp_secret
+					this.qrVisible = true
+				})
+			},
+			async closeQR () {
+				this.code = ''
+				this.qr = ''
+			}
+		},
+		components: {
+			DisplayQr
+		}
     }
 </script>
 
