@@ -7,6 +7,7 @@ class UserLogin(UserMixin, db.Model):
     uid = db.Column(db.Integer, autoincrement=True, nullable=False, primary_key=True)
     password = db.Column(db.String(64), nullable=False)
     email = db.Column(db.String(64), unique=True, nullable=False)
+    totp_secret = db.Column(db.String(128), nullable=False)
 
     def get_id(self):
         return self.uid
@@ -36,7 +37,7 @@ class UserInvoice(db.Model):
     name = db.Column(db.String(64), nullable=False)
     address = db.Column(db.String(256), nullable=False)
     account_number = db.Column(db.String(64), nullable=False)
-    tin = db.Column(db.String(64), nullable=False)
+    tin = db.Column(db.String(64), nullable=False, unique=True)
 
 class UserInvoiceSchema(ma.ModelSchema):
     class Meta:
@@ -67,6 +68,8 @@ class Invoice(db.Model):
     currency = db.Column(db.String(64), nullable=False, default='PLN')
     name = db.Column(db.String(64), nullable=False)
     items = db.Column(db.String(2137), nullable=False)
+    amount_paid = db.Column(db.Float, nullable=False, default=0.0)
+    payable = db.Column(db.Integer, nullable=False, default=0)
 
 class InvoiceSchema(ma.ModelSchema):
     class Meta:
@@ -82,6 +85,7 @@ class Transaction(db.Model):
     amount = db.Column(db.Float, nullable=False)
     currency = db.Column(db.String(64), nullable=False, default='PLN')
     name = db.Column(db.String(64), nullable=False)
+    invoice = db.Column(db.Integer, db.ForeignKey('invoice.iid'))
 
 class TransactionSchema(ma.ModelSchema):
     class Meta:

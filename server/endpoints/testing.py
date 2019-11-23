@@ -4,14 +4,20 @@ from db import queries
 
 
 def test():
-    v = queries.register('somemail', 'secretpass', 'company', 'street', 'PL1234', '2137', )
-    user = queries.getUserByID(1)
-    print(user.email)
-    user2 = queries.getUserByEmail('somemail')
-    print(user.password)
-    # # TODO - Implement mocked function
-    # # TODO - Determine necessary data
-    # if user != None:
-    #     res = {'username': user.username,'total_balance': 20.05, 'friend_balances': [{'friend': 'Mati', 'amount': 20.05, 'currency': 'PLN'}], 'user_config': {'default_currency': 'PLN', 'timezone': 'UTF-8', 'simplify_debts': False}}
+    # registerUsers()
+
+    # print(queries.getUIDByEmail('email4'))
+    # print(vars(queries.getLogin('email4')))
+
+
+    print(queries.getUserSettings('email10'))
+
     #     return make_response(res, 200)
-    return make_response('', 401)
+    return make_response('', 418)
+
+def update():
+    return make_response('', 200)
+
+def registerUsers():
+    for i in range(1,20):
+        v = queries.register(f'email{i}', 'secretpass', f'Company {i}', f'Address {i}', f'PL{i}{i}', f'N{i}P', f'123')

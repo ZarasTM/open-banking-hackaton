@@ -18,4 +18,4 @@ def load_user(user_id):
 connex_app.add_api('swagger.yml')
 
 if __name__ == '__main__':
-    connex_app.run(debug=True, host='192.168.1.23')
+    connex_app.run(debug=True, host='192.168.1.22')
