@@ -16,8 +16,13 @@
                 <b-modal v-model="createInvoice" size="xl" title="Create invoice" @ok="invoice"> 
 
                     <div class="container">
-                        <input v-model="invoiceTitle" placeholder="Invoice title"/>
-                        <b-row class="padding-lol">
+                        <b-input
+
+                                id="inline-form-input-name"
+                                class="mb-2 mr-sm-2 mb-sm-0"
+                                v-model="invoiceTitle" placeholder="Invoice title"
+                        ></b-input>
+                        <b-row class="padding-lol"  style="margin-top: 10px;">
                             <b-col>
                                 <b-row>{{seller.name}}</b-row>
                                 <b-row>{{seller.address}}</b-row>
@@ -71,7 +76,7 @@
                                         v-model="tax_rate" placeholder="Tax rate"
                                 ></b-input>
 
-                                <b-button style="margin-top: 15px;" v-on:click="addItem" variant="primary">Add item</b-button>
+                                <b-button v-on:click="addItem" variant="primary">Add item</b-button>
                             </b-form>
                         </div>
                     </div>
@@ -259,4 +264,11 @@
 </script>
 
 <style >
+    .padding-lol{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .mb-2{
+        width: 185px !important;
+    }
 </style>
