@@ -41,7 +41,7 @@
         name: "Transactions",
         data: () => {
             return {
-                inActive: true,
+                inActive: false,
                 inTransactions: [
                     {
                         name: 'InTransaction 01',
@@ -83,7 +83,7 @@
             TransactionService.getTransactionsSummary().then(response => {
                 this.inTransactions = response.data.as_buyer
                 this.outTransactions = response.data.as_seller
-                this.transactions = this.inTransactions
+                this.transactions = this.outTransactions
             })
 
         }

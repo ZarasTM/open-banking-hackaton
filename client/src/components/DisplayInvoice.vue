@@ -1,15 +1,18 @@
 <template>
 <div class="container">
     <h1>Invoice: {{invoiceData.title}}</h1>
-    <h2>{{invoiceData.timestamp}}</h2>
+    <h3>{{invoiceData.timestamp.substr(0,10)}}</h3>
+    <hr class="my-4">
     <b-row class="padding-lol">
         <b-col>
+            <b-row><h3>Seller</h3></b-row>
             <b-row>{{invoiceData.seller.name}}</b-row>
             <b-row>{{invoiceData.seller.address}}</b-row>
             <b-row>{{invoiceData.seller.tin}}</b-row>
             <b-row>{{invoiceData.seller.account_number }}</b-row>
         </b-col>
         <b-col>
+            <b-row><h3>Buyer</h3></b-row>
             <b-row>{{invoiceData.buyer.name}}</b-row>
             <b-row>{{invoiceData.buyer.address}}</b-row>
             <b-row>{{invoiceData.buyer.tin}}</b-row>
