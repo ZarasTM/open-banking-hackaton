@@ -16,15 +16,21 @@ export default {
   },
   beforeCreate: async function () {
     HttpService.isLogged().then((response) => {
-      console.log(response.status
-      );
       if (response.status === 200) {
-        this.$store.dispatch('logIn');
+
+        HttpService.tokenValid().then(response => {
+          console.log(response)
+        }).catch(error => {
+          HttpService.generateToken().then(response => {
+            open(response.data.oauth_link, '_blank')
+          })
+          return
+        })
+          this.$store.dispatch('logIn');
         this.$router.push('dashboard');
-      } else {
-        console.log('');
+
       }
-    });
+    })
   }
 }
 </script>

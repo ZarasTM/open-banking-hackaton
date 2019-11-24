@@ -87,6 +87,16 @@
                     totp_code: this.totp_code
                 }).then(response => {
                     if (response.status == 200) {
+
+                        HttpService.tokenValid().then(response => {
+                            console.log(response)
+                        }).catch(error => {
+                            HttpService.generateToken().then(response => {
+                                open(response.data.oauth_link, '_blank')
+                            })
+                            return
+                        })
+
                         this.$store.dispatch('logIn');
                         this.$router.push('dashboard');
                     }
