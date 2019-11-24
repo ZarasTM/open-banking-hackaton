@@ -1,0 +1,47 @@
+%clearfix:after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+  
+  .row {
+    @extend %clearfix;
+  
+    & + & {
+      margin-top: $grid-spacing;
+    }
+  }
+  
+  [class*='col-'] {
+    float: left;
+    width: 100%;
+    min-height: 1px;
+    margin: 0;
+  }
+  
+  
+  @media only screen and (min-width: $m-breakpoint) {
+  
+    [class*='col-'] {
+      margin-right: $gutter * 1%;
+    }
+  
+    @if $grid-padding != 0 {
+      [class*='col-'] {
+        padding: $grid-padding;
+      }
+    }
+  
+    [class*='col-']:last-of-type {
+      margin-right: 0;
+    }
+  
+    $c: (100 - ($columns-number - 1) * $gutter)/$columns-number;
+  
+    @for $i from 1 through $columns-number {
+      .col-#{$i}-#{$columns-number} {
+        width: ($c * $i + $gutter * ($i - 1) ) * 1%;
+      }
+    }
+  }
+  

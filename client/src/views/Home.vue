@@ -1,18 +1,41 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <sign-up-sign-in></sign-up-sign-in>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import SignUpSignIn from "@/components/SignUpSignIn";
+import HttpService from "@/services/SignInSignUpService"
+
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
-    HelloWorld
+    SignUpSignIn
+  },
+  beforeCreate: async function () {
+    HttpService.isLogged().then((response) => {
+      if (response.status === 200) {
+
+        HttpService.tokenValid().then(response => {
+          console.log(response)
+        }).catch(error => {
+          HttpService.generateToken().then(response => {
+            open(response.data.oauth_link, '_blank')
+          })
+          return
+        })
+          this.$store.dispatch('logIn');
+        this.$router.push('dashboard');
+
+      }
+    })
   }
 }
 </script>
+<style lang="scss" scoped>
+  .home{
+    padding-left: -($nav-width+50px);
+  }
+</style>
