@@ -47,6 +47,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        box-shadow: 10px 0px 21px 0px rgba(0,0,0,0.5);
 
 
         .nav{

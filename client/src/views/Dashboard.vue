@@ -5,7 +5,8 @@
 
             <template v-slot:lead>
                 <div class="text-white">TIN: {{tin}}</div>
-                <div class="text-white">Balance: {{balance}} PLN</div>
+                <div class="text-white">Transaction balance: {{balance}} PLN</div>
+                <div class="text-white">Bank account balance: {{accountBalance}} PLN</div>
 
             </template>
             <b-button @click="goToTransactions()" variant="info">
@@ -41,6 +42,7 @@
                 companyName: '',
                 tin: '',
                 balance: '',
+                accountBalance: '',
                 companies: []
             }
         },
@@ -61,6 +63,7 @@
                 this.companyName = response.data.user_inv_data.name
                 this.tin = response.data.user_inv_data.tin
                 this.companies = response.data.balances
+                this.accountBalance = response.data.user_account_balance
                 const user = {
                     name: response.data.user_inv_data.name,
                     address: response.data.user_inv_data.address,
