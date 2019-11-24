@@ -241,3 +241,6 @@ def updateToken(uid, new_token):
             return False
     else:
         print(f'User {uid} not found')
+
+def getTokenByUid(uid):
+    return UserConfig.query.filter(UserConfig.uid == uid).one_or_none().api_key

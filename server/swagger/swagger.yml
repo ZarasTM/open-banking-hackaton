@@ -20,6 +20,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StatusRes'
+
+  /getKey:
+    get:
+      operationId: endpoints.api-core.getKey
+      tags: [API Core, Polish API]
+      parameters:
+        - in: query
+          name: code
+          schema:
+            type: string
+          description: User key
+          required: true
+      responses:
+        200:
+          description: Key received
+
+  /generateToken:
+    post:
+      operationId: endpoints.api-core.generateToken
+      tags: [API Core, Polish API]
+      responses:
+        200:
+          description: Bank authorization link
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  oauth_link:
+                    type: string
+  
+  /tokenValid:
+    post:
+      operationId: endpoints.api-core.tokenValid
+      tags: [API Core, Polish API]
+      responses:
+        200:
+          description: Token validity status
   
   ######################################
   ############## USER DATA #############
@@ -239,6 +277,8 @@ components:
                 type: string
             required:
               [service_name, service_status]
+    
+
 
     ### Authetication
     RegistrationReq:
