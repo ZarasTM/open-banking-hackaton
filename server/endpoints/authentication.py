@@ -26,8 +26,13 @@ def register(body):
     # Create TOTP code
     totp_secret = base64.b32encode(hashlib.sha1(str(random.randint(1000, 10000)).encode('utf-8')).hexdigest().encode('utf-8'))#.upper()
     totp_link = pyotp.totp.TOTP(totp_secret).provisioning_uri(email, issuer_name="YATI")
-    print(f"Secret: {totp_secret}\nLink: {totp_link}\n")
+
     # Create new user
+    if queries.emailRegistered(email):
+        return make_response('Email already registered', 401)
+    if queries.tinRegistered(tin):
+        return make_response('Tin already registered', 401)
+
     if queries.register(email, hashed, company_name, address, account_number, tin, totp_secret): 
         return make_response({'totp_secret': str(totp_secret), 'totp_link': totp_link}, 200)
     return make_response('', 500)

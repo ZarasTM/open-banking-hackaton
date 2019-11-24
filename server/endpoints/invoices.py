@@ -16,25 +16,27 @@ def getInvoicesSummary():
     except:
         return make_response('', 401)
 
-# @login_required
+@login_required
 def getInvoice(body):
     inv_no = body.get('invoice_id')
-    try:
-        res = queries.getInvoice(current_user.get_id(), inv_no)
-        if res:
-            res = {'res_id' : res.iid,
-                'seller': queries.getUserresConfigByUid(res.seller),
-                'buyer': queries.getUserresConfigByUid(res.buyer),
-                'timestamp': res.timestamp,
-                'amount': res.amount,
-                'currency': res.currency,
-                'title': res.name,
-                'items': ast.literal_eval(res.items), # TODO - Security threat
-                'amount_paid': res.amount_paid,
-                'payable': res.payable}
+    # try:
+    res = queries.getInvoice(current_user.get_id(), inv_no)
+    if res:
+        # b, s = serializeInvoices(queries.getUserresConfigByUid(res.buyer), queries.getUserresConfigByUid(res.seller))
+        res = {'invoice_id' : res.iid,
+            'seller': serializeUserInvoiceData(queries.getUserInvoiceConfigByUid(res.seller)),
+            'buyer': serializeUserInvoiceData(queries.getUserInvoiceConfigByUid(res.buyer)),
+            'timestamp': res.timestamp,
+            'amount': res.amount,
+            'currency': res.currency,
+            'title': res.name,
+            'items': ast.literal_eval(res.items),
+            'amount_paid': res.amount_paid,
+            'payable': res.payable}
         return make_response(res, 200)
-    except:
-        return make_response('', 401)
+    return make_response('', 401)
+    # except:
+    #     return make_response('', 401)
 
 # @login_required
 def createInvoice(body):
@@ -72,4 +74,13 @@ def serializeBuyerInvoice(invoice):
         "other_party": queries.getUserInvoiceConfigByUid(invoice.seller).name,
         "currency" : invoice.currency,
         "date" : invoice.timestamp
+    }
+
+def serializeUserInvoiceData(userInvoice):
+    return {
+        "uid": userInvoice.uid,
+        "name": userInvoice.name,
+        "address": userInvoice.address,
+        "account_number": userInvoice.account_number,
+        "tin": userInvoice.tin
     }

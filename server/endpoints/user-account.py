@@ -1,6 +1,7 @@
 from flask import make_response
 from flask_login import login_required, current_user
 from db import queries
+from endpoints.apicore import getAccountBalance
 
 # @login_required
 def fetchUserData():
@@ -9,8 +10,8 @@ def fetchUserData():
         balances = queries.fetchUserBalance(user.uid)
         balances = [{'balance_user': serializeUserInvoice(queries.getUserInvoiceConfigByUid(x.buyer)), 'amount': x.amount, 'currency': x.currency}
                      for x in balances]
-        print(vars(queries.getUserInvoiceConfigByUid(user.uid)))
-        res = {'user_inv_data' : serializeUserInvoice(queries.getUserInvoiceConfigByUid(user.uid)), 'balances': balances}
+        acc_balance = getAccountBalance(user.uid)
+        res = {'user_inv_data' : serializeUserInvoice(queries.getUserInvoiceConfigByUid(user.uid)), 'balances': balances, 'user_account_balance': acc_balance}
         return make_response(res, 200)
     return make_response('', 401)
 

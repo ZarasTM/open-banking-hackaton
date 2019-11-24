@@ -1,18 +1,20 @@
 from flask import make_response
 from flask_login import login_required, current_user
 from db import queries
+from endpoints.apicore import getTransactionHistory
 
 # @login_required
 def getTransactionsSummary():
-    try:
+    # try:
+        # getTransactionHistory(current_user.get_id())
         transactions_as_buyer, transactions_as_seller = queries.getTransactionsSummary(current_user.get_id())
         # res = {'as_seller': [{'title': 'Pizza payment', 'other_party': 'Muzyczna', 'amount': 35.00, 'currency': 'PLN', 'date': '23.04.2019'}],
         #         'as_buyer': [{{'title': 'Weekly tomatoes', 'other_party': 'Pomidorex Sp. z o.o.', 'amount': 200.00, 'currency': 'PLN', 'date': '22.04.2019'}}]}
         seller, buyer = serializeTransactions(transactions_as_buyer, transactions_as_seller)
         res = {'as_seller': seller, 'as_buyer': buyer}
         return make_response(res, 200)
-    except:
-        return make_response('', 401)
+    # except :
+    #     return make_response('', 401)
 
 def serializeTransactions(buyertr, sellertr):
     b = []

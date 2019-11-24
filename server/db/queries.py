@@ -63,6 +63,9 @@ def emailRegistered(email):
     """
     return True if UserLogin.query.filter(UserLogin.email == email).one_or_none() else False
 
+def tinRegistered(tin):
+    return True if UserInvoice.query.filter(UserInvoice.tin == tin).one_or_none() else False
+
 
 def register(email, hashed, name, address, account_number, tin, totp_secret, api_key=None): # TODO - Implement any other data necessary for company registration # TODO: do
     """
@@ -95,6 +98,9 @@ def getUserByID(id):
     """
     return UserLogin.query.get(int(id))
 
+def getUserByAccNo(acc_no):
+    return UserInvoice.query.filter(UserInvoice.account_number == acc_no).one_or_none()
+
 def getInvoicesSummary(id):
     """
     :input: uid
@@ -109,7 +115,8 @@ def getInvoice(id, inv_no):
     :input: uid, invoice number
     :returns: invoice | object for given uid and invoice number OR None
     """
-    return Invoice.query.filter(Invoice.iid == inv_no).filter(Invoice.seller == id, Invoice.buyer == id).one_or_none()
+    # TODO MB: Wrong DB query
+    return Invoice.query.filter(Invoice.iid == inv_no).one_or_none()
 
 def getUserInvoiceConfigByTin(tin):
     """
@@ -232,6 +239,9 @@ def updateBalances(interaction):
 
 def fetchUserBalance(uid):
     return Balance.query.filter(Balance.seller == uid).all()
+
+def fetchLastUserTransaction(uid):
+    return Balance.query.filter(Balance.seller == uid).order_by(Balance.timestamp.desc()).first()
 
 def updateToken(uid, new_token):
     user = UserConfig.query.filter(UserConfig.uid == uid).one_or_none()

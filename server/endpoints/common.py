@@ -1,4 +1,4 @@
-redirect_url= "http://localhost:5005"  # PUT YOUR REDIRECT URI HERE
+redirect_url= "http://localhost:5005"  # TODO - Change redirect url
 
 polish_api_data = {
         "clientId": "852f7d28-02b8-4b5d-9a16-a338e55e3de1",  # API client ID
@@ -14,3 +14,4 @@ polish_api_data = {
         "accessToken": None,
         "refreshToken": None
     }
+
