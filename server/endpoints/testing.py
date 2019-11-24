@@ -10,7 +10,7 @@ def test():
     # print(vars(queries.getLogin('email4')))
     # print(vars(queries.getUserByID(20)))
     # print(queries.getUserByID(20) == queries.getUserByID('20'))
-
+    queries.addNewTransaction(seller=24, buyer=23, amount=-3000, name='Upfront payment 2')
 
     # print(queries.getUserSettings('email10'))
 

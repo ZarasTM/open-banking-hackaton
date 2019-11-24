@@ -7,10 +7,11 @@ from db import queries
 def getInvoicesSummary():
     try:
         invoices_as_buyer, invoices_as_seller = queries.getInvoicesSummary(current_user.get_id())
+        seller, buyer = serializeInvoices(invoices_as_buyer, invoices_as_seller)
         # res = {'as_seller': [{'title': 'Pizza payment', 'other_party': 'Muzyczna', 'amount': 35.00, 'currency': 'PLN', 'date': '23.04.2019'}],
         #         'as_buyer': [{{'title': 'Weekly tomatoes', 'other_party': 'Pomidorex Sp. z o.o.', 'amount': 200.00, 'currency': 'PLN', 'date': '22.04.2019'}}]}
-        
-        res = {'as_seller': invoices_as_seller, 'as_buyer': invoices_as_buyer}
+        # sellerList = []
+        res = {'as_seller': seller, 'as_buyer': buyer}
         return make_response(res, 200)
     except:
         return make_response('', 401)
@@ -38,6 +39,37 @@ def getInvoice(body):
 # @login_required
 def createInvoice(body):
     currency = body.get('currency') or 'PLN'
-    queries.addNewInvoice(body.get('seller_nip'), body.get('buyer_nip'), body.get('title'), body.get('items'), currency)
+    seller_uid = queries.getUIDByTin(body.get('seller_nip'))
+    buyer_uid = queries.getUIDByTin(body.get('buyer_nip'))
+    queries.addNewInvoice(seller_uid, buyer_uid, body.get('title'), body.get('items'), currency)
     return make_response('', 200)
 
+def serializeInvoices(buyerinv, sellerinv):
+    b = []
+    for i in buyerinv:
+        b.append(serializeBuyerInvoice(i))
+    s = []
+    for i in sellerinv:
+        s.append(serializeSellerInvoice(i))
+    return s,b
+
+def serializeSellerInvoice(invoice):
+    return {
+        "invoice_id" : invoice.iid,
+        "title": invoice.name,
+        "amount": invoice.amount,
+        "other_party": queries.getUserInvoiceConfigByUid(invoice.buyer).name,
+        "currency" : invoice.currency,
+        "date" : invoice.timestamp
+    }
+
+
+def serializeBuyerInvoice(invoice):
+    return {
+        "invoice_id" : invoice.iid,
+        "title": invoice.name,
+        "amount": invoice.amount,
+        "other_party": queries.getUserInvoiceConfigByUid(invoice.seller).name,
+        "currency" : invoice.currency,
+        "date" : invoice.timestamp
+    }
