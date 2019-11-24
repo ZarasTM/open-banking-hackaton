@@ -102,6 +102,9 @@
                             <h5 class="mb-1">{{invoice.title}}</h5>
                             <b-badge variant="info" pill>{{invoice.amount}} {{invoice.currency}}</b-badge>
                         </div>
+                        <p class="mb-1 text-left">
+                            {{invoice.other_party}}
+                        </p>
                     </b-list-group-item>
                 </b-list-group>
             </b-card-body>
