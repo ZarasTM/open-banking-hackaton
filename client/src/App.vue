@@ -1,32 +1,43 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <navbar/>
+    <router-view class="router"/>
   </div>
 </template>
-
-<style>
+<script>
+  import Navbar from "./components/Navbar";
+  export default {
+    components: {Navbar}
+  }
+</script>
+<style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+
+.router {
+  @extend %full-page;
+  padding-left: $nav-width+50px;
+  position: absolute;
+  top: 0;
+  background: linear-gradient(to bottom, rgb(100, 100, 100) 0%, rgb(75, 75, 75) 100%);
+  
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.jumbotron{
+  margin-bottom: 0 !important;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.btn-default{
+  background-color: #68889E;
+  color:#FFF;
+  border-color: #2F3E48;
 }
+
 </style>
+
+#185598
+#59B896
