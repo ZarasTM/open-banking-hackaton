@@ -10,12 +10,11 @@ Vue.use(VueRouter);
 
 const authGuard = (to, from, next) => {
   if (!store.state.isUserLoggedIn) {
-    next('');
+    next('/', {replace: true});
   } else {
     next();
   }
 };
-
 
 const routes = [
   {

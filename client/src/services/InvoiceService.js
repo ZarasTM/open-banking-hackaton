@@ -8,7 +8,7 @@ export default {
     return httpClient.post('/invoice/createInvoice', invoiceId);
   },
   getInvoiceData(invoiceId) {
-    return httpClient.post('/invoice/getInvoiceData', invoiceId);
+    return httpClient.post('/invoice/getInvoice', invoiceId);
   },
   getInvoicesSummary() {
     return httpClient.post('/invoice/getInvoicesSummary')

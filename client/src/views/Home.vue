@@ -19,8 +19,8 @@ export default {
       console.log(response.status
       );
       if (response.status === 200) {
-        this.$router.push('dashboard');
         this.$store.dispatch('logIn');
+        this.$router.push('dashboard');
       } else {
         console.log('');
       }

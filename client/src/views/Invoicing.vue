@@ -104,8 +104,8 @@
             </b-card-header>
 
             <b-card-body class="text-center">
-                <b-list-group>
-                    <b-list-group-item v-for="invoice in invoicesSwitch" class="flex-column align-items-start">
+                <b-list-group hover>
+                    <b-list-group-item style="cursor: pointer;" hover @click="getInvoice(invoice.invoice_id)" v-for="invoice in invoicesSwitch" class="flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">{{invoice.title}}</h5>
                             <b-badge variant="info" pill>{{invoice.amount}} {{invoice.currency}}</b-badge>
@@ -164,16 +164,16 @@
             async setInvoice () {
                 this.createInvoice = true;
             },
-            async getInvoice () {
-                /* TODO: uncomment when endpoint setup
-                InvoiceService.getInvoiceData({
-                    invoice: this.invoiceId
-                }).then(response => {
-                    this.currentInvoice = response.data
-                    this.displayInvoice = true
-                })
-                */
-                // THIS IS MOCKED
+            async getInvoice (id) {
+
+                // InvoiceService.getInvoiceData({
+                //     invoice_id: (""+id)
+                // }).then(response => {
+                //     this.currentInvoice = response.data;
+                //     this.displayInvoice = true
+                // })
+
+
                 this.currentInvoice = {
                     seller: {
                         address: 'Address 1',
@@ -213,7 +213,7 @@
                         net_ppu: 'Net PPU 3',
                         tax_rate: 'Tax rate 3'
                     }]
-                }
+                };
                 this.displayInvoice = true;
             },
             closeDisplay: function () {
@@ -265,11 +265,11 @@
             InvoiceService.getInvoicesSummary().then(response => {
                 this.invoicesIn = response.data.as_buyer
                 this.invoicesOut = response.data.as_seller
+                this.invoicesSwitch = this.invoicesOut
             })
         }
     }
 </script>
 
-<style scoped>
-
+<style >
 </style>
