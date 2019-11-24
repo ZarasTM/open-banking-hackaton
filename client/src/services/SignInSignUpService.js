@@ -12,5 +12,11 @@ export default {
   },
   logout(){
     return httpClient.post('/auth/logout');
+  },
+  tokenValid(){
+    return httpClient.post('/tokenValid');
+  },
+  generateToken(){
+    return httpClient.post('/generateToken');
   }
 };
