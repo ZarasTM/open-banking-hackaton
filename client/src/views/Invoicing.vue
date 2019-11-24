@@ -22,14 +22,17 @@
                                 class="mb-2 mr-sm-2 mb-sm-0"
                                 v-model="invoiceTitle" placeholder="Invoice title"
                         ></b-input>
+                        <hr class="my-4">
                         <b-row class="padding-lol"  style="margin-top: 10px;">
                             <b-col>
+                                <b-row><h3>Seller</h3></b-row>
                                 <b-row>{{seller.name}}</b-row>
                                 <b-row>{{seller.address}}</b-row>
                                 <b-row>{{seller.tin}}</b-row>
                                 <b-row>{{seller.bankAccount }}</b-row>
                             </b-col>
                             <b-col>
+                                <b-row><h3>Buyer</h3></b-row>
                                 <b-row>{{buyer.name}}</b-row>
                                 <b-row>{{buyer.address}}</b-row>
                                 <b-row>{{buyer.tin}}</b-row>
