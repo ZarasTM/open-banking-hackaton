@@ -1,7 +1,7 @@
 <template>
 <div class="container">
     <h1>Invoice: {{invoiceData.title}}</h1>
-    <h2>{{invoiceData.timestamp}}</h2>
+    <h2>{{invoiceData.timestamp.substr(0,10)}}</h2>
     <b-row class="padding-lol">
         <b-col>
             <b-row>{{invoiceData.seller.name}}</b-row>

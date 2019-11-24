@@ -51,7 +51,6 @@
             calculateBalance(){
                 let balance = 0
                 this.companies.forEach(function (company) {
-                    console.log(company.amount)
                     balance += company.amount
                 })
                 this.balance = balance

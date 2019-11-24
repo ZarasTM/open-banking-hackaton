@@ -4,14 +4,14 @@
             <span class="text-white">Invoicing</span></template>
         <hr class="my-4">
         <b-row>
-            <b-form inline>
+            <b-form inline style="margin-left: 15px;">
                 <label class="sr-only" for="inline-form-input-name">tin</label>
                 <b-input
                         id="inline-form-input-name"
                         class="mb-2 mr-sm-2 mb-sm-0"
                         v-model="tin" placeholder="tin"
                 ></b-input>
-                <b-button @click="setInvoice" variant="primary">
+                <b-button @click="setInvoice" variant="info">
                     <v-icon class="v-icon" name="edit"/>Create invoice</b-button>
                 <b-modal v-model="createInvoice" size="xl" title="Create invoice" @ok="invoice"> 
 
@@ -79,23 +79,10 @@
             </b-form>
         </b-row>
 
-        <b-row>
-            <b-form inline>
-                <label class="sr-only" for="inline-form-input-name-2">tin</label>
-                <b-input
-                        id="inline-form-input-name-2"
-                        class="mb-2 mr-sm-2 mb-sm-0"
-                        v-model="invoiceId" placeholder="Invoice Id"
-                ></b-input>
-                <b-button @click="getInvoice" variant="primary">
-                    <v-icon class="v-icon" name="file-text"/>Display invoice</b-button>
-                <b-modal v-model="displayInvoice" size="xl" :title="invoiceId">
-                    <display-invoice :invoiceData="currentInvoice" v-on:closeDisplay="closeDisplay"/>
-                </b-modal>
-            </b-form>
-        </b-row>
-
-        <b-card title="Card Title" no-body>
+        <b-modal v-model="displayInvoice" size="xl" :title="invoiceId">
+            <display-invoice :invoiceData="currentInvoice" v-on:closeDisplay="closeDisplay"/>
+        </b-modal>
+        <b-card title="Card Title" no-body style="margin-top: 8px;">
             <b-card-header header-tag="nav">
                 <b-nav card-header tabs>
                     <b-nav-item :active="inActive"  @click="setIn()">To me</b-nav-item>
@@ -166,54 +153,54 @@
             },
             async getInvoice (id) {
 
-                // InvoiceService.getInvoiceData({
-                //     invoice_id: (""+id)
-                // }).then(response => {
-                //     this.currentInvoice = response.data;
-                //     this.displayInvoice = true
-                // })
+                InvoiceService.getInvoiceData({
+                    invoice_id: (""+id)
+                }).then(response => {
+                    this.currentInvoice = response.data;
+                    this.displayInvoice = true
+                })
 
-
-                this.currentInvoice = {
-                    seller: {
-                        address: 'Address 1',
-                        name: 'Name 1',
-                        tin: 'tin 1',
-                        account_number: '111111111111111'
-                    },
-                        buyer: {
-                        address: 'Address 2',
-                        name: 'Name 2',
-                        tin: 'tin 2',
-                        account_number: '2222222222222222'
-                    },
-                    amount: '0,00',
-                    amount_paid: '0,00',
-                    title: 'Title',
-                    timestamp: '00-00-00',
-                    currency: 'PLN',
-                    items: [{
-                        name: 'Name 1',
-                        quantity: 'Quantity 1',
-                        unit: 'Unit 1',
-                        net_ppu: 'Net PPU 1',
-                        tax_rate: 'Tax rate 1'
-                    },
-                    {
-                        name: 'Name 2',
-                        quantity: 'Quantity 2',
-                        unit: 'Unit 2',
-                        net_ppu: 'Net PPU 2',
-                        tax_rate: 'Tax rate 2'
-                    },
-                    {
-                        name: 'Name 3',
-                        quantity: 'Quantity 3',
-                        unit: 'Unit 3',
-                        net_ppu: 'Net PPU 3',
-                        tax_rate: 'Tax rate 3'
-                    }]
-                };
+                //
+                // this.currentInvoice = {
+                //     seller: {
+                //         address: 'Address 1',
+                //         name: 'Name 1',
+                //         tin: 'tin 1',
+                //         account_number: '111111111111111'
+                //     },
+                //         buyer: {
+                //         address: 'Address 2',
+                //         name: 'Name 2',
+                //         tin: 'tin 2',
+                //         account_number: '2222222222222222'
+                //     },
+                //     amount: '0,00',
+                //     amount_paid: '0,00',
+                //     title: 'Title',
+                //     timestamp: '00-00-00',
+                //     currency: 'PLN',
+                //     items: [{
+                //         name: 'Name 1',
+                //         quantity: 'Quantity 1',
+                //         unit: 'Unit 1',
+                //         net_ppu: 'Net PPU 1',
+                //         tax_rate: 'Tax rate 1'
+                //     },
+                //     {
+                //         name: 'Name 2',
+                //         quantity: 'Quantity 2',
+                //         unit: 'Unit 2',
+                //         net_ppu: 'Net PPU 2',
+                //         tax_rate: 'Tax rate 2'
+                //     },
+                //     {
+                //         name: 'Name 3',
+                //         quantity: 'Quantity 3',
+                //         unit: 'Unit 3',
+                //         net_ppu: 'Net PPU 3',
+                //         tax_rate: 'Tax rate 3'
+                //     }]
+                // };
                 this.displayInvoice = true;
             },
             closeDisplay: function () {
