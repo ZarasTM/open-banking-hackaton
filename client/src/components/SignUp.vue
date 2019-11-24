@@ -157,7 +157,6 @@
 					address: this.address,
 					account_number: this.account_number
 				}).then (response => {
-				    console.log('twoja astareasrsar')
 					var that = this
 					QRCode.toDataURL(decodeURIComponent(response.data.totp_link), function (err, url) {
 						if (err) throw err

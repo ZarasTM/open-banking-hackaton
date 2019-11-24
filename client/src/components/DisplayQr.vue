@@ -1,9 +1,10 @@
 <template>
     <div class="code">
-        <img :src=qr>
-        <div>
-            <span>{{code}}</span>
-        </div>
+      <p>Use this QR code with your authentication app</p>
+      <img :src=qr>
+      <div>
+        <span>{{code}}</span>
+      </div>
     </div>
 </template>
 
