@@ -126,16 +126,16 @@
         data: () => {
             return {
                 seller: {
-                    address: '123',
-                    name: '123',
-                    tin: '123',
-                    bankAccount: '213123'
+                    address: '',
+                    name: '',
+                    tin: '',
+                    bankAccount: ''
                 },
                 buyer: {
-                    address: 'sss',
-                    name: 'aasd',
-                    tin: 'N10P',
-                    bankAccount: '213123'
+                    address: '',
+                    name: '',
+                    tin: '',
+                    bankAccount: ''
                 },
                 name: '',
                 quantity: '',
@@ -160,7 +160,25 @@
         },
         methods: {
             async setInvoice () {
-                this.createInvoice = true;
+                let buyer = this.buyer;
+                let seller = this.seller;
+                console.log(this.$store.state.user.tin)
+                InvoiceService.getUserData({tin:this.$store.state.user.tin}).then(response=>{
+                    seller.address = response.data.user_inv_data.address;
+                    seller.name = response.data.user_inv_data.name;
+                    seller.tin = response.data.user_inv_data.tin;
+                    seller.bankAccount = response.data.user_inv_data.account_number;
+                    this.createInvoice = true;
+                });
+
+                InvoiceService.getUserData({tin:this.tin}).then(response=>{
+                    buyer.address = response.data.user_inv_data.address;
+                    buyer.name = response.data.user_inv_data.name;
+                    buyer.tin = response.data.user_inv_data.tin;
+                    buyer.bankAccount = response.data.user_inv_data.account_number;
+                    this.createInvoice = true;
+                });
+
             },
             async getInvoice (id) {
 
@@ -242,8 +260,6 @@
                 }).then(response => {
                     console.log(response)
                 })
-                // InvoiceService.getUserData({ tin: this.seller.tin })
-                // InvoiceService.getUserData({ tin: this.buyer.tin })
             },
             setIn: function () {
                 this.inActive = true;

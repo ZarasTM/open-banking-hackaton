@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let apiBaseUrl = 'http://192.168.1.22:5000';
+let apiBaseUrl = 'http://192.168.0.171:5000';
 
 const config = {
   baseURL: apiBaseUrl,
